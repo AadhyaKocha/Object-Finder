@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="princeton_orange">#FA7921</color>
+    <color name="teal_blue">#257287</color>
+    <color name="independence">#424874</color>
+    <color name="thistle">#D6C3C9 </color>
+    <color name="blond">#F4F1BB</color>
+    <color name="orange_yellow">#FCC963</color>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Eye Spy</string>
+    <string name="scan_btn">Scan Room</string>
+    <string name="call_btn">Call Directly</string>
+    <string name="read_btn">Read Text</string>
+    <string name="audio_txt">Audio</string>
+    <string name="notify_txt">Notify</string>
+
+</resources>
