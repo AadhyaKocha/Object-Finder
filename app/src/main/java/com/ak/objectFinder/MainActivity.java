@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ToggleButton audioToggle = (ToggleButton)findViewById(R.id.audioBtn);
         ToggleButton notifyToggle = (ToggleButton)findViewById(R.id.notifyBtn);
+        
     }
 
     public void onClickedScan() {}
