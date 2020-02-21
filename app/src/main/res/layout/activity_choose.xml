@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/find_glasses"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:drawableLeft="@drawable/smaller_glasses"
+            android:paddingLeft="40dp"
+            android:text="Find glasses"
+            android:onClick="onFindGlassesClick"/>
+
+        <Button
+            android:id="@+id/find_key"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:drawableLeft="@drawable/smaller_keys"
+            android:paddingLeft="40dp"
+            android:text="Find keys"
+            android:onClick="onFindKeyClick"/>
+    </LinearLayout>
+
+</ScrollView>
