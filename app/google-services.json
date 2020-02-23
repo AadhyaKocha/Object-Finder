@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "919888196153",
+    "firebase_url": "https://eye-spy-65.firebaseio.com",
+    "project_id": "eye-spy-65",
+    "storage_bucket": "eye-spy-65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919888196153:android:f636587ba450b0661513e8",
+        "android_client_info": {
+          "package_name": "com.ak.objectFinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919888196153-g3irrei5avm2o1tfpj7vqphf52oq26ub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzEnfAz11cx2SeH4uNIOxLJxE8WZIU1T0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "919888196153-g3irrei5avm2o1tfpj7vqphf52oq26ub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
