@@ -2,6 +2,7 @@ package com.ak.objectFinder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -21,6 +22,10 @@ public class CallOptionActivity extends AppCompatActivity {
 
     public void onScanScreenClick(View view){
 
+
         Toast.makeText(this, "Reading text", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, HelpSignActivity.class);
+        startActivity(intent);
     }
 }
