@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/take_photo"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:drawableLeft="@drawable/small_camera"
+            android:paddingLeft="40dp"
+            android:text="Take photo"
+            android:textSize="50dp"
+            android:onClick="onTakePhotoClicked"/>
+
+    </LinearLayout>
+
+</ScrollView>

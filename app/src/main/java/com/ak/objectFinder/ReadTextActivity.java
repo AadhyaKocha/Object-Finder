@@ -30,10 +30,10 @@ public class ReadTextActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_read_text);
+        setContentView(R.layout.activity_read_text1);
         checkPermissions(this);
 
-        imageView = findViewById(R.id.signImg);
+        //imageView = findViewById(R.id.signImg);
         File tempImgFile = new File(getExternalFilesDir( Environment.DIRECTORY_PICTURES), "sign.jpg");
         imgUri = FileProvider.getUriForFile(this, "com.ak.objectFinder", tempImgFile);
 
@@ -44,24 +44,28 @@ public class ReadTextActivity extends AppCompatActivity {
     }
 
     public void onTakePhotoClicked(View view){
+        setContentView(R.layout.activity_read_text);
+        imageView = findViewById(R.id.signImg);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (resultCode != Activity.RESULT_OK) return;
         if(requestCode == CAMERA_REQUEST_CODE){
+            imageView.setImageURI(null);
             imageView.setImageURI(imgUri);
 
-            //Crop.of(imgUri,imgUri).withMaxSize(200,400);
+            //Crop.of(imgUri,imgUri).withMaxSize(5000,10000).start(this);
 
         } /*if (requestCode == Crop.REQUEST_CROP){
             imgUri = Crop.getOutput(data);
             imageView.setImageURI(null);
             imageView.setImageURI(imgUri);
-        } */
+        }*/
 
 
 
