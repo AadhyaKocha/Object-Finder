@@ -1,10 +1,5 @@
 package com.ak.objectFinder;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -18,8 +13,12 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
 import java.io.File;
-import java.util.Locale;
 
 public class ReadTextActivity extends AppCompatActivity {
 
@@ -54,9 +53,18 @@ public class ReadTextActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (resultCode != Activity.RESULT_OK) return;
         if(requestCode == CAMERA_REQUEST_CODE){
+            imageView.setImageURI(imgUri);
+
+            //Crop.of(imgUri,imgUri).withMaxSize(200,400);
+
+        } /*if (requestCode == Crop.REQUEST_CROP){
+            imgUri = Crop.getOutput(data);
             imageView.setImageURI(null);
             imageView.setImageURI(imgUri);
-        }
+        } */
+
+
+
     }
 
     public static void checkPermissions(Activity activity){
