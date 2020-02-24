@@ -56,14 +56,15 @@ public class ReadTextActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (resultCode != Activity.RESULT_OK) return;
         if(requestCode == CAMERA_REQUEST_CODE){
+            imageView.setImageURI(imgUri);
 
-            Crop.of(imgUri,imgUri).withMaxSize(200,400);
+            //Crop.of(imgUri,imgUri).withMaxSize(200,400);
 
-        } if (requestCode == Crop.REQUEST_CROP){
+        } /*if (requestCode == Crop.REQUEST_CROP){
             imgUri = Crop.getOutput(data);
             imageView.setImageURI(null);
             imageView.setImageURI(imgUri);
-        }
+        } */
 
 
 
