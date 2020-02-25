@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -112,6 +113,7 @@ public class ReadTextActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.d("success", "onSuccess: Uploaded image Url is " + imgUri.toString());
+                        Toast.makeText(getBaseContext(), "Sent to users, getting help soon!", Toast.LENGTH_LONG).show();
                     }
                 });
             }
