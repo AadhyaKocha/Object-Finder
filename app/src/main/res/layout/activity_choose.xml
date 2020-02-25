@@ -12,20 +12,22 @@
 
         <Button
             android:id="@+id/find_glasses"
-            android:layout_width="400dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
             android:drawableLeft="@drawable/smaller_glasses"
-            android:paddingLeft="40dp"
-            android:text="Find glasses"
+            android:text="@string/find_glasses"
+            android:textSize="30dp"
+            android:backgroundTint="@color/orange_yellow"
             android:onClick="onFindGlassesClick"/>
 
         <Button
             android:id="@+id/find_key"
-            android:layout_width="400dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
             android:drawableLeft="@drawable/smaller_keys"
-            android:paddingLeft="40dp"
-            android:text="Find keys"
+            android:text="@string/find_keys"
+            android:textSize="30dp"
+            android:backgroundTint="@color/princeton_orange"
             android:onClick="onFindKeyClick"/>
     </LinearLayout>
 

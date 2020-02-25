@@ -10,6 +10,4 @@ public abstract class Globals {
 
     public static boolean audioPref;
     public static boolean notifyPref;
-
-
 }

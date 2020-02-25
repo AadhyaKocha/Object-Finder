@@ -1,0 +1,8 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/redo"
+        android:width="100dp"
+        android:height="100dp"
+        android:layout_marginLeft="50dp">
+    </item>
+</layer-list>

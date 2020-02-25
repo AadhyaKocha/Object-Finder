@@ -3,8 +3,12 @@
     <string name="scan_btn">Scan Room</string>
     <string name="call_btn">Call Directly</string>
     <string name="read_btn">Read Text</string>
-    <string name="audio_txt">Audio</string>
-    <string name="notify_txt">Notify</string>
+    <string name="audio_txt">AUDIO</string>
+    <string name="notify_txt">NOTIFY</string>
+    <string name="find_glasses">Find glasses</string>
+    <string name="find_keys">Find keys</string>
+    <string name="try_again">Try Again</string>
+    <string name="ask_help">Ask for help</string>
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
