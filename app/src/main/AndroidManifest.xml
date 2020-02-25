@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowTextActivity"/>
+        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".LogInActivity" />
+        <activity android:name=".ShowTextActivity" />
         <activity android:name=".HelpSignActivity" />
         <activity android:name=".ChooseActivity" />
-        <activity android:name=".CallOptionActivity"/>
+        <activity android:name=".CallOptionActivity" />
         <activity android:name=".ScanActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -30,14 +32,13 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.xd.demotestcamera"
+            android:authorities="com.ak.objectFinder"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>
