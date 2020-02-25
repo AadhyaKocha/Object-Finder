@@ -8,8 +8,8 @@ public abstract class Globals {
 
     public static final String TEXT_KEY = "text_key";
 
-    public static boolean audioPref;
-    public static boolean notifyPref;
+    public static boolean audioPref = true;
+    public static boolean notifyPref = true;
 
 
 }
