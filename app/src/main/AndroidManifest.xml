@@ -3,11 +3,11 @@
     package="com.ak.objectFinder">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -16,10 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowTextActivity"/>
+        <activity android:name=".FindObject"></activity>
+        <activity android:name=".ShowTextActivity" />
         <activity android:name=".HelpSignActivity" />
         <activity android:name=".ChooseActivity" />
-        <activity android:name=".CallOptionActivity"/>
+        <activity android:name=".CallOptionActivity" />
         <activity android:name=".ScanActivity" />
         <activity android:name=".ReadTextActivity" />
         <activity android:name=".MainActivity">
@@ -42,9 +43,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

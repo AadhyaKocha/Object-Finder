@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Intent intent = new Intent(this, FindObject.class);
+        //(intent);
+
     }
 
     public void onClickedScan(View view) {

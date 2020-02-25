@@ -14,6 +14,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -35,20 +36,26 @@ public class ReadTextActivity extends AppCompatActivity {
 
     private TextToSpeech tts;
     public static final int CAMERA_REQUEST_CODE = 1;
-    private ImageView imageView;
     private Uri imgUri;
+    public TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_read_text1);
+        setContentView(R.layout.activity_read_text);
+        textView = findViewById(R.id.text_show);
+        textView.setText("Loading...");
         checkPermissions(this);
 
         //imageView = findViewById(R.id.signImg);
-        File tempImgFile = new File(getExternalFilesDir( Environment.DIRECTORY_PICTURES), "sign.jpg");
+        File tempImgFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "sign.jpg");
         imgUri = FileProvider.getUriForFile(this, "com.ak.objectFinder", tempImgFile);
 
-        if (Globals.audioPref){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
+        startActivityForResult(intent, CAMERA_REQUEST_CODE);
+
+        if (Globals.audioPref) {
             tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
                 public void onInit(int status) {
@@ -57,8 +64,7 @@ public class ReadTextActivity extends AppCompatActivity {
                         if (result == TextToSpeech.LANG_MISSING_DATA ||
                                 result == TextToSpeech.LANG_NOT_SUPPORTED) {
                             Log.d("audioError", "This language is not supported");
-                        }
-                        else {
+                        } else {
                             tts.setPitch(0.6f);
                             tts.setSpeechRate(1.0f);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -81,16 +87,14 @@ public class ReadTextActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public void onTakePhotoClicked(View view){
-        setContentView(R.layout.activity_read_text);
-        imageView = findViewById(R.id.signImg);
+    public void onTryAgainClicked(View view){
+        textView.setText("Loading...");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
-
     }
 
-    public void onSendClicked(View view){
+    public void onAskForHelpClicked(View view){
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference imageRef = storageRef.child("TextImages/" + new Date() + ".jpg");
         UploadTask uploadTask = imageRef.putFile(imgUri);
@@ -112,24 +116,27 @@ public class ReadTextActivity extends AppCompatActivity {
                 });
             }
         });
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (resultCode != Activity.RESULT_OK) return;
         if(requestCode == CAMERA_REQUEST_CODE){
-            imageView.setImageURI(null);
-            imageView.setImageURI(imgUri);
 
-            //Crop.of(imgUri,imgUri).withMaxSize(5000,10000).start(this);
+            VisionAPI.getTextFromImage(imgUri, this, new VisionAPI.TextAnalysisCallback() {
+                @Override
+                public void onSuccess(String resultText) {
+                    // show the text
+                    TextView text = findViewById(R.id.text_show);
+                    text.setText(resultText);
+                }
 
-        } /*if (requestCode == Crop.REQUEST_CROP){
-            imgUri = Crop.getOutput(data);
-            imageView.setImageURI(null);
-            imageView.setImageURI(imgUri);
-        }*/
-
+                @Override
+                public void onError(Exception e) {
+                    Log.d("MAD", "error in vision API");
+                }
+            });
+        }
     }
 
     public static void checkPermissions(Activity activity){
