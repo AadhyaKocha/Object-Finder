@@ -7,8 +7,6 @@ import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,14 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraX;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageAnalysisConfig;
-import androidx.camera.core.ImageCapture;
-import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.io.File;
+import com.google.firebase.ml.vision.objects.FirebaseVisionObject;
+
+import java.util.List;
 import java.util.concurrent.Executor;
 
 public class FindObject extends AppCompatActivity {
@@ -55,54 +53,17 @@ public class FindObject extends AppCompatActivity {
         Preview preview = new Preview(pConfig);
 
         preview.setOnPreviewOutputUpdateListener(
-                new Preview.OnPreviewOutputUpdateListener() {
-                    @Override
-                    public void onUpdated(Preview.PreviewOutput output) {
-                        ViewGroup parent = (ViewGroup) textureView.getParent();
-                        parent.removeView(textureView);
-                        parent.addView(textureView, 0);
-
-                        textureView.setSurfaceTexture(output.getSurfaceTexture());
-                        updateTransform();
-                    }
-                });
-        ImageCaptureConfig imageCaptureConfig = new ImageCaptureConfig.Builder().setTargetRotation(getWindowManager().getDefaultDisplay().getRotation()).build();
-        final ImageCapture imgCap = new ImageCapture(imageCaptureConfig);
-        Executor e = new Executor() {
-            @Override
-            public void execute(Runnable command) {
-                command.run();
-            }
-        };
-        findViewById(R.id.imgCapture).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                File file = new File("");
-                imgCap.takePicture(file, e,
-                        new ImageCapture.OnImageSavedListener() {
-                            @Override
-                            public void onImageSaved(File file) {
-                                // insert your code here.
-                            }
-
-                            @Override
-                            public void onError(
-                                    ImageCapture.ImageCaptureError imageCaptureError,
-                                    String message,
-                                    Throwable cause) {
-                                // insert your code here.
-                            }
-                        });
-            }
-        });
+                output -> textureView.setSurfaceTexture(output.getSurfaceTexture()));
 
         ImageAnalysisConfig imgAConfig = new ImageAnalysisConfig.Builder().setImageReaderMode(ImageAnalysis.ImageReaderMode.ACQUIRE_LATEST_IMAGE).build();
         ImageAnalysis analysis = new ImageAnalysis(imgAConfig);
-        TextAnalyzer a = new TextAnalyzer();
-        a.setCallback(new TextAnalyzer.TextAnalysisCallback() {
+        ObjectIdentifier a = new ObjectIdentifier();
+        a.setCallback(new ObjectIdentifier.ObjectAnalysisCallback() {
             @Override
-            public void onSuccess(String resultText) {
-                Log.e("scott", resultText);
+            public void onSuccess(List<FirebaseVisionObject> objects) {
+                for (FirebaseVisionObject obj : objects) {
+                    Log.e("scott", obj.getClassificationCategory() + "");
+                }
             }
 
             @Override
@@ -111,10 +72,10 @@ public class FindObject extends AppCompatActivity {
             }
         });
 
-        analysis.setAnalyzer(e, a);
+        analysis.setAnalyzer(new ThreadPerTaskExecutor(), a);
 
         //bind to lifecycle:
-        CameraX.bindToLifecycle(this, analysis, imgCap, preview);
+        CameraX.bindToLifecycle(this, analysis, preview);
     }
 
     private void updateTransform() {
@@ -170,5 +131,11 @@ public class FindObject extends AppCompatActivity {
             }
         }
         return true;
+    }
+}
+
+class ThreadPerTaskExecutor implements Executor {
+    public void execute(Runnable r) {
+        new Thread(r).start();
     }
 }
