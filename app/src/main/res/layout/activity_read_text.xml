@@ -7,16 +7,26 @@
     <ImageView
         android:id="@+id/signImg"
         android:layout_width="200dp"
-        android:layout_height="400dp"
-        android:layout_margin="5dp">
-    </ImageView>
+        android:layout_height="254dp"
+        android:layout_margin="5dp"></ImageView>
 
     <Button
-        android:id="@+id/btnChangePhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:onClick="onTakePhotoClicked"
-        android:text="Take Photo" >
-    </Button>
+            android:id="@+id/redo"
+            android:layout_width="400dp"
+            android:layout_height="150dp"
+            android:drawableLeft="@drawable/small_redo"
+            android:paddingLeft="40dp"
+            android:text="Retake"
+            android:textSize="50dp"
+            android:onClick="onTakePhotoClicked"/>
+    <Button
+        android:id="@+id/send"
+        android:layout_width="400dp"
+        android:layout_height="150dp"
+        android:drawableLeft="@drawable/small_confirm"
+        android:paddingLeft="40dp"
+        android:text="Send"
+        android:textSize="50dp"
+        android:onClick="onSendClicked"/>
+
 </LinearLayout>
