@@ -39,6 +39,7 @@ public class ReadTextActivity extends AppCompatActivity {
     public static final int CAMERA_REQUEST_CODE = 1;
     private Uri imgUri;
     public TextView textView;
+    private String speechText = "Click image of text to be read";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,10 @@ public class ReadTextActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
 
+        speak();
+    }
+
+    public void speak() {
         if (Globals.audioPref) {
             tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
                 @Override
@@ -69,9 +74,9 @@ public class ReadTextActivity extends AppCompatActivity {
                             tts.setPitch(0.6f);
                             tts.setSpeechRate(1.0f);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                tts.speak("Click image of text to be read", TextToSpeech.QUEUE_FLUSH, null, null);
+                                tts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, null);
                             else
-                                tts.speak("Click image of text to be read", TextToSpeech.QUEUE_FLUSH, null);
+                                tts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
                         }
                     }
                 }
@@ -90,12 +95,16 @@ public class ReadTextActivity extends AppCompatActivity {
 
     public void onTryAgainClicked(View view){
         textView.setText("Loading...");
+        speechText = "Try Again";
+        speak();
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
     }
 
     public void onAskForHelpClicked(View view){
+        speechText = "Ask for help";
+        speak();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference imageRef = storageRef.child("TextImages/" + new Date() + ".jpg");
         UploadTask uploadTask = imageRef.putFile(imgUri);

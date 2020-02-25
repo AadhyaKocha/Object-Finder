@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
         <TextView
@@ -15,30 +15,24 @@
 
         <Button
             android:id="@+id/try_again"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:drawableLeft="@drawable/small_redo"
-            android:paddingLeft="40dp"
-            android:text="Try Again"
-            android:textSize="50dp"
+            android:text="@string/try_again"
+            android:textSize="30dp"
+            android:backgroundTint="@color/orange_yellow"
             android:onClick="onTryAgainClicked"/>
 
         <Button
             android:id="@+id/find_key"
-            android:layout_width="400dp"
+            android:layout_width="match_parent"
             android:layout_height="150dp"
             android:drawableLeft="@drawable/small_people"
-            android:paddingLeft="40dp"
-            android:text="Ask for help"
-            android:textSize="50dp"
+            android:text="@string/ask_help"
+            android:textSize="30dp"
+            android:backgroundTint="@color/princeton_orange"
             android:onClick="onAskForHelpClicked"/>
 
-
-
     </LinearLayout>
-
-
-
-
 
 </ScrollView>
