@@ -38,7 +38,7 @@ public class ReadTextActivity extends AppCompatActivity {
         imgUri = FileProvider.getUriForFile(this, "com.ak.objectFinder", tempImgFile);
 
         if (Globals.audioPref){
-            // re
+            /* TO-DO: speech prompt user to take a picture*/
         }
 
     }
@@ -50,6 +50,10 @@ public class ReadTextActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
 
+    }
+
+    public void onSendClicked(View view){
+        /* TO DO: send imgUri  to firebase*/
     }
 
     @Override
