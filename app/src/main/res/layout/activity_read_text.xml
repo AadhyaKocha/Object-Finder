@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/signImg"
-        android:layout_width="200dp"
-        android:layout_height="254dp"
-        android:layout_margin="5dp"></ImageView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50dp"
+            android:id="@+id/text_show" />
 
-    <Button
-            android:id="@+id/redo"
+        <Button
+            android:id="@+id/try_again"
             android:layout_width="400dp"
             android:layout_height="150dp"
             android:drawableLeft="@drawable/small_redo"
             android:paddingLeft="40dp"
-            android:text="Retake"
+            android:text="Try Again"
             android:textSize="50dp"
-            android:onClick="onTakePhotoClicked"/>
-    <Button
-        android:id="@+id/send"
-        android:layout_width="400dp"
-        android:layout_height="150dp"
-        android:drawableLeft="@drawable/small_confirm"
-        android:paddingLeft="40dp"
-        android:text="Send"
-        android:textSize="50dp"
-        android:onClick="onSendClicked"/>
+            android:onClick="onTryAgainClicked"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/find_key"
+            android:layout_width="400dp"
+            android:layout_height="150dp"
+            android:drawableLeft="@drawable/small_people"
+            android:paddingLeft="40dp"
+            android:text="Ask for help"
+            android:textSize="50dp"
+            android:onClick="onAskForHelpClicked"/>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</ScrollView>
