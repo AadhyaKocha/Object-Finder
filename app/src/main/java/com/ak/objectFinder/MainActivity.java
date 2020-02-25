@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(this, FindObject.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, FindObject.class);
+        //(intent);
 
     }
 

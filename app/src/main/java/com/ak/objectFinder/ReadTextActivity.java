@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,18 +26,24 @@ public class ReadTextActivity extends AppCompatActivity {
 
     private TextToSpeech tts;
     public static final int CAMERA_REQUEST_CODE = 1;
-    private ImageView imageView;
     private Uri imgUri;
+    public TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_read_text1);
+        setContentView(R.layout.activity_read_text);
+        textView = findViewById(R.id.text_show);
+        textView.setText("Loading...");
         checkPermissions(this);
 
         //imageView = findViewById(R.id.signImg);
         File tempImgFile = new File(getExternalFilesDir( Environment.DIRECTORY_PICTURES), "sign.jpg");
         imgUri = FileProvider.getUriForFile(this, "com.ak.objectFinder", tempImgFile);
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
+        startActivityForResult(intent, CAMERA_REQUEST_CODE);
 
         if (Globals.audioPref){
             /* TO-DO: speech prompt user to take a picture*/
@@ -43,36 +51,40 @@ public class ReadTextActivity extends AppCompatActivity {
 
     }
 
-    public void onTakePhotoClicked(View view){
-        setContentView(R.layout.activity_read_text);
-        imageView = findViewById(R.id.signImg);
+    public void onSendClicked(View view){
+        /* TO DO: send imgUri  to firebase*/
+    }
+
+    public void onTryAgainClicked(View view){
+        textView.setText("Loading...");
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
-
     }
 
-    public void onSendClicked(View view){
-        /* TO DO: send imgUri  to firebase*/
+    public void onAskForHelpClicked(View view){
+        /* TO-DO: insert fire base code here, then send push notification */
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (resultCode != Activity.RESULT_OK) return;
         if(requestCode == CAMERA_REQUEST_CODE){
-            imageView.setImageURI(null);
-            imageView.setImageURI(imgUri);
 
-            //Crop.of(imgUri,imgUri).withMaxSize(5000,10000).start(this);
+            VisionAPI.getTextFromImage(imgUri, this, new VisionAPI.TextAnalysisCallback() {
+                @Override
+                public void onSuccess(String resultText) {
+                    // show the text
+                    TextView text = findViewById(R.id.text_show);
+                    text.setText(resultText);
+                }
 
-        } /*if (requestCode == Crop.REQUEST_CROP){
-            imgUri = Crop.getOutput(data);
-            imageView.setImageURI(null);
-            imageView.setImageURI(imgUri);
-        }*/
-
-
-
+                @Override
+                public void onError(Exception e) {
+                    Log.d("MAD", "error in vision API");
+                }
+            });
+        }
     }
 
     public static void checkPermissions(Activity activity){
