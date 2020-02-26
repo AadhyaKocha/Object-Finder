@@ -34,7 +34,7 @@
 
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
-            android:value="ocr" />
+            android:value="ocr, label" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

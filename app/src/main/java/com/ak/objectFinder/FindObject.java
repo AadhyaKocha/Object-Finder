@@ -19,7 +19,7 @@ import androidx.camera.core.PreviewConfig;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.firebase.ml.vision.objects.FirebaseVisionObject;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -60,9 +60,9 @@ public class FindObject extends AppCompatActivity {
         ObjectIdentifier a = new ObjectIdentifier();
         a.setCallback(new ObjectIdentifier.ObjectAnalysisCallback() {
             @Override
-            public void onSuccess(List<FirebaseVisionObject> objects) {
-                for (FirebaseVisionObject obj : objects) {
-                    Log.e("scott", obj.getClassificationCategory() + "");
+            public void onSuccess(List<FirebaseVisionImageLabel> objects) {
+                for (FirebaseVisionImageLabel obj : objects) {
+                    Log.e("scott", obj.getText() + "");
                 }
             }
 
