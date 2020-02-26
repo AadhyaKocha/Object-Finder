@@ -1,5 +1,6 @@
 package com.ak.objectFinder;
 
+import android.net.Uri;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,7 +13,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,11 +43,16 @@ public class FirebaseAPI extends FirebaseMessagingService {
         db.collection("users").document(userId).set(data);
     }
 
-    public static void getTextFromHelpers(String firebasePathToImage, TextView resultTextView) {
+    public static void getTextFromHelpers(Uri imgUri, TextView resultTextView) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        String path = "TextImages/" + new Date() + ".jpg";
+        StorageReference imageRef = storageRef.child(path);
+        imageRef.putFile(imgUri);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, Object> data = new HashMap<>();
-        data.put("imagePath", firebasePathToImage);
+        data.put("imagePath", path);
         data.put("text", "Waiting for reply...");
 
         DocumentReference docRef = db.collection("helpRequests").document();

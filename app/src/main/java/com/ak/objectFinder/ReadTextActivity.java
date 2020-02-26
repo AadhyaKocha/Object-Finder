@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,24 +12,14 @@ import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 public class ReadTextActivity extends AppCompatActivity {
@@ -105,28 +94,7 @@ public class ReadTextActivity extends AppCompatActivity {
     public void onAskForHelpClicked(View view){
         speechText = "Ask for help";
         speak();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageRef = storageRef.child("TextImages/" + new Date() + ".jpg");
-        UploadTask uploadTask = imageRef.putFile(imgUri);
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception exception) {
-                Log.d("imageUploadError", "Reading text image failed to upload");
-                //can make into toast for user later
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Log.d("success", "onSuccess: Uploaded image Url is " + imgUri.toString());
-                        Toast.makeText(getBaseContext(), "Sent to users, getting help soon!", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
+        FirebaseAPI.getTextFromHelpers(imgUri, textView);
     }
 
     @Override
