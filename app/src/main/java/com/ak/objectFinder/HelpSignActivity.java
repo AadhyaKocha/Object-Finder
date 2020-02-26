@@ -18,6 +18,7 @@ public class HelpSignActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help_sign);
         requestId = getIntent().getExtras().getString("requestId");
         ImageView imageView = findViewById(R.id.sign);
+        FirebaseAPI.setImageViewFromRequest(requestId, imageView, this);
 
 
     }

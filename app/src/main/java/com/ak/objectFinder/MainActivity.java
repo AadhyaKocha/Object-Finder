@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         if (mUser == null) {
             // Not logged in, launch the Log In activity
             loadLogInView();
+            return;
         }
 
         ToggleButton audioToggle = findViewById(R.id.audioBtn);
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 
     public static void checkPermissions(Activity activity){
