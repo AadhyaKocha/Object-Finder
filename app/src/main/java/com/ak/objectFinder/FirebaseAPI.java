@@ -1,10 +1,17 @@
 package com.ak.objectFinder;
 
+import android.content.Context;
 import android.net.Uri;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +39,22 @@ public class FirebaseAPI extends FirebaseMessagingService {
         } else {
             FirebaseMessaging.getInstance().unsubscribeFromTopic("helper");
         }
+    }
+
+    public static void getNotificationStatus(ToggleButton button) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        button.setChecked(document.getBoolean("notify"));
+                    }
+                }
+            }
+        });
     }
 
     public static void createUser() {
@@ -85,5 +108,20 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
         db.collection("users").document(userId).update("token", token);
 
+    }
+
+    public static void setImageViewFromRequest(String requestId, ImageView imageView, Context context) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("helpRequests").document(requestId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Glide.with(context).load(FirebaseStorage.getInstance().getReference().child(document.getString("imagePath"))).into(imageView);
+                    }
+                }
+            }
+        });
     }
 }

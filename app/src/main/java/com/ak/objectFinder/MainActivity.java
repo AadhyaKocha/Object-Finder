@@ -32,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (getIntent().getExtras() != null) {
+            String requestId = getIntent().getExtras().getString("requestId");
+            Intent intent = new Intent(this, HelpSignActivity.class);
+            intent.putExtra("requestId", requestId);
+            startActivity(intent);
+        }
+
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ToggleButton audioToggle = findViewById(R.id.audioBtn);
+        FirebaseAPI.getNotificationStatus(audioToggle);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
