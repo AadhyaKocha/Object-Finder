@@ -8,9 +8,8 @@ import androidx.camera.core.ImageProxy;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
-import com.google.firebase.ml.vision.objects.FirebaseVisionObject;
-import com.google.firebase.ml.vision.objects.FirebaseVisionObjectDetector;
-import com.google.firebase.ml.vision.objects.FirebaseVisionObjectDetectorOptions;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 
 import java.util.List;
 
@@ -45,15 +44,9 @@ public class ObjectIdentifier implements ImageAnalysis.Analyzer {
         Image mediaImage = imageProxy.getImage();
         int rotation = degreesToFirebaseRotation(degrees);
         FirebaseVisionImage image = FirebaseVisionImage.fromMediaImage(mediaImage, rotation);
-        FirebaseVisionObjectDetectorOptions options =
-                new FirebaseVisionObjectDetectorOptions.Builder()
-                        .setDetectorMode(FirebaseVisionObjectDetectorOptions.STREAM_MODE)
-                        .enableClassification()
-                        .enableMultipleObjects()
-                        .build();
-        FirebaseVisionObjectDetector objectDetector =
-                FirebaseVision.getInstance().getOnDeviceObjectDetector(options);
-        objectDetector.processImage(image)
+        FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
+                .getOnDeviceImageLabeler();
+        labeler.processImage(image)
                 .addOnSuccessListener(
                         detectedObjects -> callback.onSuccess(detectedObjects))
                 .addOnFailureListener(
@@ -61,7 +54,7 @@ public class ObjectIdentifier implements ImageAnalysis.Analyzer {
     }
 
     public interface ObjectAnalysisCallback {
-        void onSuccess(List<FirebaseVisionObject> detectedObjects);
+        void onSuccess(List<FirebaseVisionImageLabel> detectedObjects);
 
         void onError(Exception e);
     }

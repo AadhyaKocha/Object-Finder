@@ -47,7 +47,6 @@ public class ReadTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_read_text);
         textView = findViewById(R.id.text_show);
         textView.setText("Loading...");
-        checkPermissions(this);
 
         //imageView = findViewById(R.id.signImg);
         File tempImgFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "sign.jpg");
@@ -150,12 +149,4 @@ public class ReadTextActivity extends AppCompatActivity {
         }
     }
 
-    public static void checkPermissions(Activity activity){
-        if(Build.VERSION.SDK_INT < 23)
-            return;
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 0);
-        }
-    }
 }

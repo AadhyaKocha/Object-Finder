@@ -1,6 +1,13 @@
 package com.ak.objectFinder;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -9,9 +16,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Locale;
@@ -27,10 +33,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        mAuth = FirebaseAuth.getInstance();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//
-//        //updateUI(currentUser);
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+        if (mUser == null) {
+            // Not logged in, launch the Log In activity
+            loadLogInView();
+        }
 
         ToggleButton audioToggle = findViewById(R.id.audioBtn);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -49,12 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 // The toggle is enabled
                 // The toggle is disabled
                 Globals.notifyPref = isChecked;
+                FirebaseAPI.setNotificationStatus(isChecked);
                 speechtext = "Notifications setting changed";
                 speak();
             }
         });
         //Intent intent = new Intent(this, FindObject.class);
         //(intent);
+
+        checkPermissions(this);
     }
 
     public void speak() {
@@ -109,37 +121,22 @@ public class MainActivity extends AppCompatActivity {
         speak();
         Intent intent = new Intent(this, ReadTextActivity.class);
         startActivity(intent);
+
     }
 
-//    public void createAccount(String email, String password) {
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            mUser = mAuth.getCurrentUser();
-//                            //updateUI(user);
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-//                            //updateUI(null);
-//                        }
-//                    }
-//                });
-//    }
-//
-//    public void signIn(String email, String password) {
-//        mAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            mUser = mAuth.getCurrentUser();
-//                            //updateUI(user);
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-//                            //updateUI(null);
-//                        }
-//                    }
-//                });
-//    }
+    private void loadLogInView() {
+        Intent intent = new Intent(this, LogInActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    public static void checkPermissions(Activity activity){
+        if(Build.VERSION.SDK_INT < 23)
+            return;
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 0);
+        }
+    }
 }
