@@ -64,6 +64,11 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
+    public static void sendTextToUser(String requestID, String text) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("helpRequests").document(requestID).update("text", text);
+    }
+
     @Override
     public void onNewToken(String token) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
