@@ -1,8 +1,13 @@
 package com.ak.objectFinder;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -53,12 +58,15 @@ public class MainActivity extends AppCompatActivity {
                 // The toggle is enabled
                 // The toggle is disabled
                 Globals.notifyPref = isChecked;
+                FirebaseAPI.setNotificationStatus(isChecked);
                 speechtext = "Notifications setting changed";
                 speak();
             }
         });
         //Intent intent = new Intent(this, FindObject.class);
         //(intent);
+
+        checkPermissions(this);
     }
 
     public void speak() {
@@ -121,5 +129,14 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    public static void checkPermissions(Activity activity){
+        if(Build.VERSION.SDK_INT < 23)
+            return;
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 0);
+        }
     }
 }

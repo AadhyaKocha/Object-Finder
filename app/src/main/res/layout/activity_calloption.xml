@@ -13,7 +13,7 @@
         <Button
             android:id="@+id/scanRoom"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="170dp"
             android:text="@string/scan_btn"
             android:backgroundTint="@color/orange_yellow"
             android:textSize="30dp"
@@ -22,11 +22,20 @@
         <Button
             android:id="@+id/readText"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
+            android:layout_height="170dp"
             android:text="@string/read_btn"
             android:backgroundTint="@color/princeton_orange"
             android:textSize="30dp"
             android:onClick="onScanScreenClick"/>
+
+        <Button
+            android:id="@+id/directCall"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:text="@string/call_btn"
+            android:backgroundTint="@color/independence"
+            android:textSize="30dp"
+            android:onClick="onCallDirectlyClick"/>
     </LinearLayout>
 
 </ScrollView>
