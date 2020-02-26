@@ -3,7 +3,26 @@
     <string name="scan_btn">Scan Room</string>
     <string name="call_btn">Call Directly</string>
     <string name="read_btn">Read Text</string>
-    <string name="audio_txt">Audio</string>
-    <string name="notify_txt">Notify</string>
+    <string name="audio_txt">AUDIO</string>
+    <string name="notify_txt">NOTIFY</string>
+    <string name="find_glasses">Find glasses</string>
+    <string name="find_keys">Find keys</string>
+    <string name="try_again">Try Again</string>
+    <string name="ask_help">Ask for help</string>
+
+    <string name="password_hint">Password</string>
+    <string name="email_hint">Email</string>
+    <string name="sign_up_button_label">Sign Up</string>
+    <string name="signup_error_message">Please make sure you enter an email address and password!</string>
+    <string name="signup_error_title">Error!</string>
+    <string name="signup_success">Account successfully created! You can now Login.</string>
+    <string name="login_error_message">Please make sure you enter an email address and password!</string>
+    <string name="login_error_title">Error!</string>
+    <string name="login_button_label">Login</string>
+    <string name="sign_up_text">Sign Up!</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="add_item">Add New Item</string>
+    <string name="action_logout">Logout</string>
+
 
 </resources>

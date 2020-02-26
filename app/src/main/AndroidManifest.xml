@@ -16,8 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FindObject"></activity>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".LogInActivity" />
         <activity android:name=".ShowTextActivity" />
+        <activity android:name=".FindObject"/>
         <activity android:name=".HelpSignActivity" />
         <activity android:name=".ChooseActivity" />
         <activity android:name=".CallOptionActivity" />
@@ -45,6 +47,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
     </application>
 
 </manifest>
