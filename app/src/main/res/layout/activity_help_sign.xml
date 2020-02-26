@@ -18,7 +18,6 @@
             android:id="@+id/sign"
             android:layout_width="350dp"
             android:layout_height="200dp"
-            android:src="@drawable/expimg"
             android:layout_gravity="center_horizontal"/>
 
         <TextView
