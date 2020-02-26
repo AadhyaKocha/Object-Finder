@@ -12,6 +12,7 @@
     <string name="start_btn">Start</string>
     <string name="connect_btn">Connect</string>
     <string name="disconnect_btn">Disconnect</string>
+    <string name="thank_you">Thank you for your help! It is well appreciated!</string>
 
     <string name="password_hint">Password</string>
     <string name="email_hint">Email</string>
