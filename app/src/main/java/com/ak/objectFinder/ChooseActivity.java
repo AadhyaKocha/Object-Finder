@@ -47,7 +47,7 @@ public class ChooseActivity extends AppCompatActivity {
         Toast.makeText(this, "Finding keys", Toast.LENGTH_SHORT).show();
         speechtext = "You have chosen keys";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, ScanActivity.class);
+        Intent intent = new Intent(this, FindObject.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.keys);
         startActivity(intent);
     }

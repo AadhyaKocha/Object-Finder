@@ -36,7 +36,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences sp = getSharedPreferences("com.ak.objectFinder", Context.MODE_PRIVATE);
 
-        //Log.e("scott", getIntent().getExtras().toString());
+        if (getIntent().getExtras() != null) {
+            String requestId = getIntent().getExtras().getString("requestId");
+            Intent intent = new Intent(this, HelpSignActivity.class);
+            intent.putExtra("requestId", requestId);
+            startActivity(intent);
+        }
+
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         if (mUser == null) {
             // Not logged in, launch the Log In activity
             loadLogInView();
+            return;
         }
 
         if (sp.contains(Globals.audio_key)){
@@ -53,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ToggleButton audioToggle = findViewById(R.id.audioBtn);
+        FirebaseAPI.getNotificationStatus(audioToggle);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
@@ -114,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 
     public static void checkPermissions(Activity activity){
