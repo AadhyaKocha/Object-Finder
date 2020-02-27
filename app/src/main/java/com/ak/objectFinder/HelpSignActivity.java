@@ -1,5 +1,6 @@
 package com.ak.objectFinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,6 +29,9 @@ public class HelpSignActivity extends AppCompatActivity {
         sign_text = editText.getText().toString();
 
         FirebaseAPI.sendTextToUser(requestId, sign_text);
-        finish();
+//        finish();
+
+        Intent intent = new Intent(this, ThankYouActivity.class);
+        startActivity(intent);
     }
 }
