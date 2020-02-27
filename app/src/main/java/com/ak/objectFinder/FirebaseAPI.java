@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FirebaseStorage;
@@ -80,14 +83,15 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        String defaultText = "Waiting for reply...";
         Map<String, Object> data = new HashMap<>();
         data.put("imagePath", path);
-        data.put("text", "Waiting for reply...");
+        data.put("text", defaultText);
 
         DocumentReference docRef = db.collection("helpRequests").document();
         docRef.set(data);
 
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        ListenerRegistration registration = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
@@ -95,8 +99,26 @@ public class FirebaseAPI extends FirebaseMessagingService {
                     return;
                 }
                 if (snapshot != null && snapshot.exists()) {
-                    resultTextView.setText(snapshot.getString("text"));
+                    String text = snapshot.getString("text");
+                    resultTextView.setText(text);
                 }
+            }
+        });
+
+        resultTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                registration.remove();
             }
         });
 
