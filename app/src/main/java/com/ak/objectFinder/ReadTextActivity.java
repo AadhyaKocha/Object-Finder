@@ -28,7 +28,7 @@ public class ReadTextActivity extends AppCompatActivity {
     public static final int CAMERA_REQUEST_CODE = 1;
     private Uri imgUri;
     public TextView textView;
-    private String speechText = "Click image of text to be read";
+    private String speechText = "Take image of text to be read";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
