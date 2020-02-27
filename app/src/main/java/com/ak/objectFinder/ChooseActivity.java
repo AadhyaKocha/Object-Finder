@@ -20,31 +20,7 @@ public class ChooseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
-        speak();
-    }
-
-    public void speak() {
-        if (Globals.audioPref) {
-            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                @Override
-                public void onInit(int status) {
-                    if (status == TextToSpeech.SUCCESS) {
-                        int result = tts.setLanguage(Locale.ENGLISH);
-                        if (result == TextToSpeech.LANG_MISSING_DATA ||
-                                result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                            Log.d("audioError", "This language is not supported");
-                        } else {
-                            tts.setPitch(0.6f);
-                            tts.setSpeechRate(1.0f);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                tts.speak(speechtext, TextToSpeech.QUEUE_FLUSH, null, null);
-                            else
-                                tts.speak(speechtext, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-                    }
-                }
-            });
-        }
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
     }
 
     @Override
@@ -60,7 +36,7 @@ public class ChooseActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Finding glasses", Toast.LENGTH_SHORT).show();
         speechtext = "You have chosen glasses";
-        speak();
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, ScanActivity.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.glasses);
         startActivity(intent);
@@ -70,7 +46,7 @@ public class ChooseActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Finding keys", Toast.LENGTH_SHORT).show();
         speechtext = "You have chosen keys";
-        speak();
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, ScanActivity.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.keys);
         startActivity(intent);

@@ -10,4 +10,6 @@ public abstract class Globals {
 
     public static boolean audioPref;
     public static boolean notifyPref;
+
+    public static String audio_key = "audio_key";
 }

@@ -2,7 +2,9 @@ package com.ak.objectFinder;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,12 +29,14 @@ public class MainActivity extends AppCompatActivity {
     private TextToSpeech tts;
     private String speechtext = "What do you need help with today?";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences sp = getSharedPreferences("com.ak.objectFinder", Context.MODE_PRIVATE);
 
-        Log.e("scott", getIntent().getExtras().toString());
+        //Log.e("scott", getIntent().getExtras().toString());
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -42,14 +46,21 @@ public class MainActivity extends AppCompatActivity {
             loadLogInView();
         }
 
+        if (sp.contains(Globals.audio_key)){
+            Globals.audioPref = sp.getBoolean(Globals.audio_key, false);
+        } else {
+            Globals.audioPref = false;
+        }
+
         ToggleButton audioToggle = findViewById(R.id.audioBtn);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
                 // The toggle is disabled
                 Globals.audioPref = isChecked;
+                sp.edit().putBoolean(Globals.audio_key,isChecked);
                 speechtext = "Audio settings on";
-                speak();
+                TextToSpeechHelper.speak(getApplicationContext(), speechtext);
             }
         });
 
@@ -61,37 +72,10 @@ public class MainActivity extends AppCompatActivity {
                 Globals.notifyPref = isChecked;
                 FirebaseAPI.setNotificationStatus(isChecked);
                 speechtext = "Notifications setting changed";
-                speak();
+                TextToSpeechHelper.speak(getApplicationContext(), speechtext);
             }
         });
-        //Intent intent = new Intent(this, FindObject.class);
-        //(intent);
-
         checkPermissions(this);
-    }
-
-    public void speak() {
-        if (Globals.audioPref) {
-            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                @Override
-                public void onInit(int status) {
-                    if (status == TextToSpeech.SUCCESS) {
-                        int result = tts.setLanguage(Locale.ENGLISH);
-                        if (result == TextToSpeech.LANG_MISSING_DATA ||
-                                result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                            Log.d("audioError", "This language is not supported");
-                        } else {
-                            tts.setPitch(0.6f);
-                            tts.setSpeechRate(1.0f);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                tts.speak(speechtext, TextToSpeech.QUEUE_FLUSH, null, null);
-                            else
-                                tts.speak(speechtext, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-                    }
-                }
-            });
-        }
     }
 
     @Override
@@ -105,21 +89,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickedScan(View view) {
         speechtext = "Scan room";
-        speak();
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, ChooseActivity.class);
         startActivity(intent);
     }
 
     public void onClickedCall(View view) {
         speechtext = "Call directly";
-        speak();
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, CallOptionActivity.class);
         startActivity(intent);
     }
 
     public void onClickedRead(View view) {
         speechtext = "Read text";
-        speak();
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, ReadTextActivity.class);
         startActivity(intent);
 
