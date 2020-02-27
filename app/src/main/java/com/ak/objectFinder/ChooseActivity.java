@@ -61,7 +61,7 @@ public class ChooseActivity extends AppCompatActivity {
         Toast.makeText(this, "Finding glasses", Toast.LENGTH_SHORT).show();
         speechtext = "You have chosen glasses";
         speak();
-        Intent intent = new Intent(this, ScanActivity.class);
+        Intent intent = new Intent(this, FindObject.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.glasses);
         startActivity(intent);
     }
@@ -71,7 +71,7 @@ public class ChooseActivity extends AppCompatActivity {
         Toast.makeText(this, "Finding keys", Toast.LENGTH_SHORT).show();
         speechtext = "You have chosen keys";
         speak();
-        Intent intent = new Intent(this, ScanActivity.class);
+        Intent intent = new Intent(this, FindObject.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.keys);
         startActivity(intent);
     }
