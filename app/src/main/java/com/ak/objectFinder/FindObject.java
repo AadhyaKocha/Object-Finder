@@ -1,8 +1,11 @@
 package com.ak.objectFinder;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
@@ -29,6 +32,8 @@ public class FindObject extends AppCompatActivity {
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
     TextureView textureView;
     private int REQUEST_CODE_PERMISSIONS = 101;
+    boolean vibrate = false;
+    private String goalObject = "Mobile phone";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,8 @@ public class FindObject extends AppCompatActivity {
 
     private void startCamera() {
         CameraX.unbindAll();
-
+        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = {0, 1000000000};
         Size screen = new Size(textureView.getWidth(), textureView.getHeight()); //size of the screen
 
         PreviewConfig pConfig = new PreviewConfig.Builder().setTargetResolution(screen).build();
@@ -62,7 +68,17 @@ public class FindObject extends AppCompatActivity {
             @Override
             public void onSuccess(List<FirebaseVisionImageLabel> objects) {
                 for (FirebaseVisionImageLabel obj : objects) {
-                    Log.e("scott", obj.getText() + "");
+                    if (obj.getText().equals(goalObject)) {
+                        if (!vibrate) {
+                            vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
+                            vibrate = true;
+                        }
+                        return;
+                    }
+                    if (vibrate) {
+                        vibe.cancel();
+                        vibrate = false;
+                    }
                 }
             }
 
