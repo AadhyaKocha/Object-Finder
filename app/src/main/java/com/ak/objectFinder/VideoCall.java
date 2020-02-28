@@ -36,7 +36,7 @@ public class VideoCall extends AppCompatActivity implements Connector.IConnect{
 
     public void onClickConnect(View view) {
         String token = "cHJvdmlzaW9uAEV5ZVNweUAxNjRiOTUudmlkeW8uaW8ANjM3NTAxMTg3MDQAADZmNGY2MTRjMWFkZWUwMTE3ZDA3Y2E0NmE2ODJkZjM1YjZlMDZhMWQzMTliNDUzZjJjM2FkMTVlYWZjMThkMTE1ZTg0YTVkNDI2YWYyODllNzVlYTJiOTQ0MGNiNDFjYg==";
-        mVidyoConnector.connect("prod.vidyo.io", token, "Dmo", "DemoRoom", this);
+        mVidyoConnector.connect("prod.vidyo.io", token, "Call", "EyeSpy", this);
     }
 
     public void onClickDisconnect(View view) {
@@ -44,14 +44,14 @@ public class VideoCall extends AppCompatActivity implements Connector.IConnect{
     }
 
     public void onSuccess() {
-        Log.d("videoStatus", "success");
+
     }
 
     public void onFailure(Connector.ConnectorFailReason connectorFailReason) {
-        Log.d("videoStatus", "failure");
+
     }
 
     public void onDisconnected(Connector.ConnectorDisconnectReason connectorDisconnectReason) {
-        Log.d("videoStatus", "success");
+
     }
 }
