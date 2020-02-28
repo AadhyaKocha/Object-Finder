@@ -24,12 +24,21 @@ public class VideoCall extends AppCompatActivity{
         videoFrame = (FrameLayout)findViewById(R.id.video_frame);
     }
 
-    public void Start(View view) {
+    public void onClickStart(View view) {
         mVidyoConnector = new Connector(videoFrame, Connector.ConnectorViewStyle.VIDYO_CONNECTORVIEWSTYLE_Default,
                 7,
                 "",
                 "",
                 0);
         mVidyoConnector.showViewAt(videoFrame, 0, 0, videoFrame.getWidth(), videoFrame.getHeight());
+    }
+
+    public void onClickConnect(View view) {
+        String token = "";
+//        mVidyoConnector.connect("prod.vidyo.io", token, "Call", "EyeSpy", this);
+    }
+
+    public void onClickDisconnect(View view) {
+
     }
 }

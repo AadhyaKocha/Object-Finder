@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/start_btn"/>
+        android:text="@string/start_btn"
+        android:onClick="onClickStart"/>
 
     <Button
         android:id="@+id/connectBtn"
@@ -28,7 +29,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="67dp"
         android:layout_toRightOf="@id/startBtn"
-        android:text="@string/connect_btn" />
+        android:text="@string/connect_btn"
+        android:onClick="onClickConnect"/>
 
     <Button
         android:id="@+id/disconnectBtn"
@@ -36,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/disconnect_btn"/>
+        android:text="@string/disconnect_btn"
+        android:onClick="onClickDisconnect"/>
 
 </RelativeLayout>
