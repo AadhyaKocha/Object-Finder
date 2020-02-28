@@ -29,9 +29,9 @@ public class HelpSignActivity extends AppCompatActivity {
         sign_text = editText.getText().toString();
 
         FirebaseAPI.sendTextToUser(requestId, sign_text);
-//        finish();
+        finish();
 
-        Intent intent = new Intent(this, ThankYouActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ThankYouActivity.class);
+//        startActivity(intent);
     }
 }
