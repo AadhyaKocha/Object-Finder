@@ -68,6 +68,7 @@ public class FindObject extends AppCompatActivity {
             @Override
             public void onSuccess(List<FirebaseVisionImageLabel> objects) {
                 for (FirebaseVisionImageLabel obj : objects) {
+                    Log.d("MAD", obj.getText());
                     if (obj.getText().equals(goalObject)) {
                         if (!vibrate) {
                             vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
@@ -92,6 +93,11 @@ public class FindObject extends AppCompatActivity {
 
         //bind to lifecycle:
         CameraX.bindToLifecycle(this, analysis, preview);
+    }
+
+    public void onPause(){
+        super.onPause();
+        CameraX.unbindAll();
     }
 
     private void updateTransform() {

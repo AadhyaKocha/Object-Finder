@@ -12,4 +12,8 @@ public abstract class Globals {
     public static boolean notifyPref;
 
     public static String audio_key = "audio_key";
+
+    public static String phoneGoal= "Mobile phone";
+    public static String jacketGoal = "Jacket";
+    public static String bagGoal = "Bag";
 }

@@ -35,8 +35,8 @@ public class VideoCall extends AppCompatActivity implements Connector.IConnect{
     }
 
     public void onClickConnect(View view) {
-        String token = "cHJvdmlzaW9uAEV5ZVNweUAxNjRiOTUudmlkeW8uaW8ANjM3NTAxMTg3MDQAADZmNGY2MTRjMWFkZWUwMTE3ZDA3Y2E0NmE2ODJkZjM1YjZlMDZhMWQzMTliNDUzZjJjM2FkMTVlYWZjMThkMTE1ZTg0YTVkNDI2YWYyODllNzVlYTJiOTQ0MGNiNDFjYg==";
-        mVidyoConnector.connect("prod.vidyo.io", token, "Dmo", "DemoRoom", this);
+        //String token = "cHJvdmlzaW9uAEV5ZVNweUAxNjRiOTUudmlkeW8uaW8ANjM3NTAxMTg3MDQAADZmNGY2MTRjMWFkZWUwMTE3ZDA3Y2E0NmE2ODJkZjM1YjZlMDZhMWQzMTliNDUzZjJjM2FkMTVlYWZjMThkMTE1ZTg0YTVkNDI2YWYyODllNzVlYTJiOTQ0MGNiNDFjYg==";
+        //mVidyoConnector.connect("prod.vidyo.io", token, "Dmo", "DemoRoom", this);
     }
 
     public void onClickDisconnect(View view) {
