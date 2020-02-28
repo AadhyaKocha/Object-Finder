@@ -36,6 +36,9 @@ public class CallOptionActivity extends AppCompatActivity {
         Toast.makeText(this, "Finding object", Toast.LENGTH_SHORT).show();
         speechtext = "I hope we can help you scan the room!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+
+        Intent intent = new Intent(this, FindObject.class);
+        startActivity(intent);
     }
 
     public void onScanScreenClick(View view){
@@ -43,7 +46,7 @@ public class CallOptionActivity extends AppCompatActivity {
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Toast.makeText(this, "Reading text", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, HelpSignActivity.class);
+        Intent intent = new Intent(this, ReadTextActivity.class);
         startActivity(intent);
     }
 

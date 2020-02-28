@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class ChooseActivity extends AppCompatActivity {
     private TextToSpeech tts;
-    private String speechtext = "What do you want to find? Glasses or keys?";
+    private String speechtext = "What do you want to find? Glasses or mobile phone?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,8 @@ public class ChooseActivity extends AppCompatActivity {
 
     public void onFindKeyClick(View view){
 
-        Toast.makeText(this, "Finding keys", Toast.LENGTH_SHORT).show();
-        speechtext = "You have chosen keys";
+        Toast.makeText(this, "Finding mobile phone", Toast.LENGTH_SHORT).show();
+        speechtext = "You have chosen mobile phone";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, FindObject.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.keys);

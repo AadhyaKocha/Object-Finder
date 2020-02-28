@@ -38,11 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (getIntent().getExtras() != null) {
             String requestId = getIntent().getExtras().getString("requestId");
-            Intent intent = new Intent(this, HelpSignActivity.class);
-            intent.putExtra("requestId", requestId);
-            startActivity(intent);
+            if (requestId != null) {
+                Intent intent = new Intent(this, HelpSignActivity.class);
+                intent.putExtra("requestId", requestId);
+                startActivity(intent);
+            }
         }
-
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
