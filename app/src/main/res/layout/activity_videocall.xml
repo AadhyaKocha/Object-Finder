@@ -19,7 +19,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
         android:text="@string/start_btn"
+        android:backgroundTint="@color/princeton_orange"
+        android:background="@drawable/box_layout"
         android:onClick="onClickStart"/>
 
     <Button
@@ -29,7 +32,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="67dp"
         android:layout_toRightOf="@id/startBtn"
+        android:layout_marginBottom="5dp"
         android:text="@string/connect_btn"
+        android:backgroundTint="@color/yellow_green"
+        android:background="@drawable/box_layout"
         android:onClick="onClickConnect"/>
 
     <Button
@@ -38,7 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
         android:text="@string/disconnect_btn"
+        android:backgroundTint="@color/spanish_crimson"
+        android:background="@drawable/box_layout"
         android:onClick="onClickDisconnect"/>
 
 </RelativeLayout>

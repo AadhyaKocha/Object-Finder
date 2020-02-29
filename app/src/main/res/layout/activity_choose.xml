@@ -7,27 +7,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/find_glasses"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:drawableLeft="@drawable/smaller_glasses"
             android:text="@string/find_glasses"
             android:textSize="30dp"
             android:backgroundTint="@color/orange_yellow"
+            android:background="@drawable/round_btn"
             android:onClick="onFindGlassesClick"/>
 
         <Button
             android:id="@+id/find_key"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:drawableLeft="@drawable/small_phone"
             android:text="Find Mobile Phone"
             android:textSize="30dp"
             android:backgroundTint="@color/princeton_orange"
+            android:background="@drawable/round_btn"
             android:onClick="onFindKeyClick"/>
     </LinearLayout>
 

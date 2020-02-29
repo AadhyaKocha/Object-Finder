@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,22 +18,34 @@
             android:id="@+id/try_again"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_below="@id/text_show"
             android:drawableLeft="@drawable/small_redo"
             android:text="@string/try_again"
             android:textSize="30dp"
             android:backgroundTint="@color/orange_yellow"
+            android:background="@drawable/round_btn"
             android:onClick="onTryAgainClicked"/>
 
         <Button
             android:id="@+id/find_key"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_below="@id/try_again"
             android:drawableLeft="@drawable/small_people"
             android:text="@string/ask_help"
             android:textSize="30dp"
             android:backgroundTint="@color/princeton_orange"
+            android:background="@drawable/round_btn"
             android:onClick="onAskForHelpClicked"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>

@@ -14,10 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="@string/email_hint" >
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress">
 
         <requestFocus />
     </EditText>
@@ -36,11 +37,12 @@
         android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_alignLeft="@+id/passwordField"
-        android:layout_below="@+id/passwordField"
+        android:layout_below="@id/passwordField"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:textSize="30dp"
         android:backgroundTint="@color/princeton_orange"
-        android:text="@string/sign_up_text" />
+        android:background="@drawable/round_btn"
+        android:text="@string/sign_up_button_label" />
 
 </RelativeLayout>

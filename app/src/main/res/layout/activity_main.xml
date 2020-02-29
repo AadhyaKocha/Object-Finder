@@ -16,22 +16,32 @@
     <Button
         android:id="@+id/callBtn"
         android:layout_width="wrap_content"
-        android:layout_height="280dp"
+        android:layout_height="250dp"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@id/space"
-        android:backgroundTint="@color/independence"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/round_btn"
+        android:backgroundTint="@color/royal_purple"
         android:onClick="onClickedCall"
         android:text="@string/call_btn"
-        android:textSize="35dp"/>
+        android:textSize="35dp" />
 
     <Button
         android:id="@+id/scanBtn"
         android:layout_width="wrap_content"
-        android:layout_height="280dp"
+        android:layout_height="250dp"
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:layout_toLeftOf="@id/space"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/round_btn"
         android:backgroundTint="@color/princeton_orange"
         android:onClick="onClickedScan"
         android:text="@string/scan_btn"
@@ -40,10 +50,15 @@
     <Button
         android:id="@+id/readBtn"
         android:layout_width="wrap_content"
-        android:layout_height="280dp"
+        android:layout_height="250dp"
         android:layout_below="@id/scanBtn"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/spaceSecond"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="@drawable/round_btn"
         android:backgroundTint="@color/orange_yellow"
         android:onClick="onClickedRead"
         android:text="@string/read_btn"
@@ -78,12 +93,15 @@
         android:layout_below="@id/callBtn"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="3dp"
         android:layout_toRightOf="@id/spaceSecond"
         android:text="@string/audio_txt"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="35dp" />
+        android:textSize="35dp"
+        android:background="@drawable/box_layout"/>
 
     <TextView
         android:id="@+id/notifyTxt"
@@ -92,9 +110,28 @@
         android:layout_below="@id/audioBtn"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/spaceSecond"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
         android:text="@string/notify_txt"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="35dp" />
+        android:textSize="35dp"
+        android:background="@drawable/box_layout"/>
 
 </RelativeLayout>
+
+<!--<Button-->
+<!--android:id="@+id/textBox"-->
+<!--android:layout_width="200dp"-->
+<!--android:layout_height="250dp"-->
+<!--android:layout_below="@id/scanBtn"-->
+<!--android:layout_alignParentRight="true"-->
+<!--android:layout_marginLeft="3dp"-->
+<!--android:layout_marginTop="3dp"-->
+<!--android:layout_marginRight="3dp"-->
+<!--android:layout_marginBottom="3dp"-->
+<!--android:layout_toLeftOf="@id/readBtn"-->
+<!--android:background="@drawable/round_btn"-->
+<!--android:backgroundTint="@color/thistle"-->
+<!--android:forceDarkAllowed="false"-->
+<!--android:visibility="visible" />-->

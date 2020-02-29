@@ -7,33 +7,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/scanRoom"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:text="@string/scan_btn"
             android:backgroundTint="@color/orange_yellow"
+            android:background="@drawable/round_btn"
             android:textSize="30dp"
             android:onClick="onFindObjectClick"/>
 
         <Button
             android:id="@+id/readText"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:text="@string/read_btn"
             android:backgroundTint="@color/princeton_orange"
+            android:background="@drawable/round_btn"
             android:textSize="30dp"
             android:onClick="onScanScreenClick"/>
 
         <Button
             android:id="@+id/directCall"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:text="@string/call_btn"
-            android:backgroundTint="@color/independence"
+            android:backgroundTint="@color/royal_purple"
+            android:background="@drawable/round_btn"
             android:textSize="30dp"
             android:onClick="onCallDirectlyClick"/>
     </LinearLayout>

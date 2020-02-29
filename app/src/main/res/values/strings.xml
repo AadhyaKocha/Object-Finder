@@ -24,10 +24,10 @@
     <string name="login_error_message">Please make sure you enter an email address and password!</string>
     <string name="login_error_title">Error!</string>
     <string name="login_button_label">Login</string>
-    <string name="sign_up_text">Sign Up!</string>
+    <string name="sign_up_text">Or Sign Up</string>
     <string name="title_activity_login">Sign in</string>
     <string name="add_item">Add New Item</string>
     <string name="action_logout">Logout</string>
-
+    <string name="welcome_msg">Enter your login credentials or click sign-up to create and account</string>
 
 </resources>
