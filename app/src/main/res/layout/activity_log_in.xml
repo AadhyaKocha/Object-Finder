@@ -89,7 +89,7 @@
         android:text="@string/login_button_label" />
 
     <Button
-        android:id="@+id/signUpText"
+        android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_below="@+id/loginButton"
