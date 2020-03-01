@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Here's the sign you can help with:"
+            android:text="Someone needs help reading this sign:"
             android:textSize="30dp"/>
 
         <ImageView
@@ -21,11 +21,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:text="Enter the text from the sign" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:text="Enter text from the sign or " />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sharp_mic_black_18dp"
+                android:onClick="onClickSpeechToText"/>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/sign_text"
@@ -44,7 +55,6 @@
             android:backgroundTint="@color/princeton_orange"
             android:background="@drawable/box_layout"
             android:onClick="onSendTextClick" />
-
 
     </LinearLayout>
 

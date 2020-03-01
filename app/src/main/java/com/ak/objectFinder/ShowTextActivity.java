@@ -18,7 +18,5 @@ public class ShowTextActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.text_show);
 
         textView.setText(text);
-
-
     }
 }

@@ -34,8 +34,11 @@ public class ReadTextActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_text);
+        TextToSpeechHelper.speak(getApplicationContext(), speechText);
+
         textView = findViewById(R.id.text_show);
         textView.setText("Loading...");
+        speechText = textView.getText().toString();
 
         //imageView = findViewById(R.id.signImg);
         File tempImgFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "sign.jpg");
@@ -45,31 +48,7 @@ public class ReadTextActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
 
-        speak();
-    }
-
-    public void speak() {
-        if (Globals.audioPref) {
-            tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-                @Override
-                public void onInit(int status) {
-                    if (status == TextToSpeech.SUCCESS) {
-                        int result = tts.setLanguage(Locale.ENGLISH);
-                        if (result == TextToSpeech.LANG_MISSING_DATA ||
-                                result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                            Log.d("audioError", "This language is not supported");
-                        } else {
-                            tts.setPitch(0.6f);
-                            tts.setSpeechRate(1.0f);
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                tts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null, null);
-                            else
-                                tts.speak(speechText, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-                    }
-                }
-            });
-        }
+        TextToSpeechHelper.speak(getApplicationContext(), speechText);
     }
 
     @Override
@@ -84,7 +63,7 @@ public class ReadTextActivity extends AppCompatActivity {
     public void onTryAgainClicked(View view){
         textView.setText("Loading...");
         speechText = "Try Again";
-        speak();
+        TextToSpeechHelper.speak(getApplicationContext(), speechText);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
@@ -92,7 +71,7 @@ public class ReadTextActivity extends AppCompatActivity {
 
     public void onAskForHelpClicked(View view){
         speechText = "Ask for help";
-        speak();
+        TextToSpeechHelper.speak(getApplicationContext(), speechText);
         FirebaseAPI.getTextFromHelpers(imgUri, textView);
     }
 
@@ -107,6 +86,9 @@ public class ReadTextActivity extends AppCompatActivity {
                     // show the text
                     TextView text = findViewById(R.id.text_show);
                     text.setText(resultText);
+                    speechText = resultText;
+                    TextToSpeechHelper.speak(getApplicationContext(), speechText);
+
                 }
 
                 @Override
