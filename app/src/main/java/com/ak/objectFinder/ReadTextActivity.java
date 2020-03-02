@@ -29,6 +29,7 @@ public class ReadTextActivity extends AppCompatActivity {
     private Uri imgUri;
     public TextView textView;
     private String speechText = "Take image of text to be read";
+    private boolean call = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,8 @@ public class ReadTextActivity extends AppCompatActivity {
         textView = findViewById(R.id.text_show);
         textView.setText("Loading...");
         speechText = textView.getText().toString();
+
+        call =  getIntent().getBooleanExtra("Call", false);
 
         //imageView = findViewById(R.id.signImg);
         File tempImgFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "sign.jpg");
@@ -80,22 +83,27 @@ public class ReadTextActivity extends AppCompatActivity {
         if (resultCode != Activity.RESULT_OK) return;
         if(requestCode == CAMERA_REQUEST_CODE){
 
-            VisionAPI.getTextFromImage(imgUri, this, new VisionAPI.TextAnalysisCallback() {
-                @Override
-                public void onSuccess(String resultText) {
-                    // show the text
-                    TextView text = findViewById(R.id.text_show);
-                    text.setText(resultText);
-                    speechText = resultText;
-                    TextToSpeechHelper.speak(getApplicationContext(), speechText);
+            if (call){
+                onAskForHelpClicked(findViewById(R.id.text_show));
+            } else {
 
-                }
+                VisionAPI.getTextFromImage(imgUri, this, new VisionAPI.TextAnalysisCallback() {
+                    @Override
+                    public void onSuccess(String resultText) {
+                        // show the text
+                        TextView text = findViewById(R.id.text_show);
+                        text.setText(resultText);
+                        speechText = resultText;
+                        TextToSpeechHelper.speak(getApplicationContext(), speechText);
 
-                @Override
-                public void onError(Exception e) {
-                    Log.d("MAD", "error in vision API");
-                }
-            });
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Log.d("MAD", "error in vision API");
+                    }
+                });
+            }
         }
     }
 

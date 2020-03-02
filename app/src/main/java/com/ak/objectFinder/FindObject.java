@@ -33,7 +33,9 @@ public class FindObject extends AppCompatActivity {
     TextureView textureView;
     private int REQUEST_CODE_PERMISSIONS = 101;
     boolean vibrate = false;
-    private String goalObject = "Mobile phone";
+    private String goalObject;
+    private int viewCount = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class FindObject extends AppCompatActivity {
         setContentView(R.layout.activity_find_object);
 
         textureView = findViewById(R.id.view_finder);
+
+        goalObject =  getIntent().getStringExtra(Globals.OBJECT_TYPE);
 
         if (allPermissionsGranted()) {
             startCamera(); //start camera if permission has been granted by user
@@ -67,7 +71,10 @@ public class FindObject extends AppCompatActivity {
         a.setCallback(new ObjectIdentifier.ObjectAnalysisCallback() {
             @Override
             public void onSuccess(List<FirebaseVisionImageLabel> objects) {
+
                 for (FirebaseVisionImageLabel obj : objects) {
+
+                    //Log.d("MAD", obj.getText());
                     Log.d("MAD", obj.getText());
                     if (obj.getText().equals(goalObject)) {
                         if (!vibrate) {
@@ -81,6 +88,7 @@ public class FindObject extends AppCompatActivity {
                         vibrate = false;
                     }
                 }
+
             }
 
             @Override
@@ -93,11 +101,6 @@ public class FindObject extends AppCompatActivity {
 
         //bind to lifecycle:
         CameraX.bindToLifecycle(this, analysis, preview);
-    }
-
-    public void onPause(){
-        super.onPause();
-        CameraX.unbindAll();
     }
 
     private void updateTransform() {

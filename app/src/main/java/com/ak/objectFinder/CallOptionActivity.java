@@ -47,6 +47,7 @@ public class CallOptionActivity extends AppCompatActivity {
         Toast.makeText(this, "Reading text", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, ReadTextActivity.class);
+        intent.putExtra("Call", true);
         startActivity(intent);
     }
 
