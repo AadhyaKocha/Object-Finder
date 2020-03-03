@@ -113,12 +113,16 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                Log.e("scott", "changed!");
+                if (!((s.toString()).equals(defaultText))) {
+                    registration.remove();
+                    Log.e("scott", "removed!");
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                registration.remove();
+
             }
         });
 
