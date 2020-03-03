@@ -103,7 +103,7 @@ public class FindObject extends AppCompatActivity {
             }
         });
 
-        analysis.setAnalyzer(new ThreadPerTaskExecutor(), a);
+        analysis.setAnalyzer(a);
 
         //bind to lifecycle:
         CameraX.bindToLifecycle(this, analysis, preview);
