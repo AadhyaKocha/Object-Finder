@@ -40,9 +40,6 @@
             android:name=".LogInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ShowTextActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".HelpSignActivity"
             android:screenOrientation="portrait" />
         <activity
