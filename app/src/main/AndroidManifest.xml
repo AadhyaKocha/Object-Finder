@@ -8,6 +8,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -16,31 +22,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".ThankYouActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".VideoCall"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FindObject"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LogInActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ShowTextActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".HelpSignActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ChooseActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CallOptionActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ScanActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ReadTextActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SplashScreen"
+        <activity android:name=".VideoAgorio"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".ThankYouActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VideoCall"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FindObject"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LogInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ShowTextActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HelpSignActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChooseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CallOptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReadTextActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashScreen"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

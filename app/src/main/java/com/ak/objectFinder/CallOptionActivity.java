@@ -53,7 +53,8 @@ public class CallOptionActivity extends AppCompatActivity {
     public void onCallDirectlyClick(View view){
         speechtext = "Video call directly!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, VideoCall.class);
+//        Intent intent = new Intent(this, VideoCall.class);
+        Intent intent = new Intent(this, VideoAgorio.class);
         startActivity(intent);
     }
 }

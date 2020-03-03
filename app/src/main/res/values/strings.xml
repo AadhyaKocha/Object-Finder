@@ -30,4 +30,7 @@
     <string name="action_logout">Logout</string>
     <string name="welcome_msg">Enter your login credentials or click sign-up to create and account</string>
 
+    <string name="agora_app_id">c8e077013d4549399ccb86f126cbb4da</string>
+    <string name="agora_access_token">006c8e077013d4549399ccb86f126cbb4daIADF9v+xIMXoJfxOPsU6drPGz6Qo0NWg3Qps8TpVwSMGBf8LlbUAAAAAEAB3Zs2JmHxeXgEAAQCYfF5e</string>
+
 </resources>
