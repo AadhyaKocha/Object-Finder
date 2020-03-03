@@ -30,6 +30,7 @@ public class ReadTextActivity extends AppCompatActivity {
     public TextView textView;
     private String speechText = "Take image of text to be read";
     private boolean call = false;
+    private boolean tryAgain = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class ReadTextActivity extends AppCompatActivity {
     public void onTryAgainClicked(View view){
         textView.setText("Loading...");
         speechText = "Try Again";
+        tryAgain = true;
         TextToSpeechHelper.speak(getApplicationContext(), speechText);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
@@ -74,13 +76,24 @@ public class ReadTextActivity extends AppCompatActivity {
 
     public void onAskForHelpClicked(View view){
         speechText = "Ask for help";
+        if (call){
+            View b1 = findViewById(R.id.try_again);
+            View b2 = findViewById(R.id.help);
+            b1.setVisibility(View.GONE);
+            b2.setVisibility(View.GONE);
+        }
         TextToSpeechHelper.speak(getApplicationContext(), speechText);
         FirebaseAPI.getTextFromHelpers(imgUri, textView);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (resultCode != Activity.RESULT_OK) return;
+        if (resultCode != Activity.RESULT_OK){
+            if (!tryAgain){
+                finish();
+            }
+            return;
+        }
         if(requestCode == CAMERA_REQUEST_CODE){
 
             if (call){
