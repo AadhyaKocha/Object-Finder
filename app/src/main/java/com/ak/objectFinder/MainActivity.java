@@ -21,8 +21,6 @@ import androidx.core.content.ContextCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Locale;
-
 public class MainActivity extends AppCompatActivity {
     public FirebaseUser mUser;
     private FirebaseAuth mAuth;
@@ -37,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("com.ak.objectFinder", Context.MODE_PRIVATE);
 
         if (getIntent().getExtras() != null) {
+            Log.e("scott", "extras do exist");
             String requestId = getIntent().getExtras().getString("requestId");
             if (requestId != null) {
                 Intent intent = new Intent(this, HelpSignActivity.class);
