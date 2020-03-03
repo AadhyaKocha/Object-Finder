@@ -75,6 +75,10 @@ public class FirebaseAPI extends FirebaseMessagingService {
         db.collection("users").document(userId).set(data);
     }
 
+    public static void getRequesterID(String requestID) {
+
+    }
+
     public static void getTextFromHelpers(Uri imgUri, TextView resultTextView) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         String path = "TextImages/" + new Date() + ".jpg";

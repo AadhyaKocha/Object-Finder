@@ -25,5 +25,6 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
             startActivity(intent);
         }
 
+
     }
 }
