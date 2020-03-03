@@ -34,21 +34,35 @@ public class ChooseActivity extends AppCompatActivity {
 
     public void onFindGlassesClick(View view){
 
-        Toast.makeText(this, "Finding glasses", Toast.LENGTH_SHORT).show();
         speechtext = "You have chosen glasses";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, ScanActivity.class);
+        Intent intent = new Intent(this, FindObject.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.glasses);
         startActivity(intent);
     }
 
-    public void onFindKeyClick(View view){
+    public void onFindPhoneClick(View view){
 
-        Toast.makeText(this, "Finding mobile phone", Toast.LENGTH_SHORT).show();
         speechtext = "You have chosen mobile phone";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, FindObject.class);
-        intent.putExtra(Globals.OBJECT_TYPE, Globals.keys);
+        intent.putExtra(Globals.OBJECT_TYPE, Globals.phone);
+        startActivity(intent);
+    }
+
+    public void onFindJacketClick(View view){
+        speechtext = "You have chosen jacket";
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        Intent intent = new Intent(this, FindObject.class);
+        intent.putExtra(Globals.OBJECT_TYPE, Globals.jacket);
+        startActivity(intent);
+    }
+
+    public void onFindBagClick(View view){
+        speechtext = "You have chosen bag";
+        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        Intent intent = new Intent(this, FindObject.class);
+        intent.putExtra(Globals.OBJECT_TYPE, Globals.bag);
         startActivity(intent);
     }
 }
