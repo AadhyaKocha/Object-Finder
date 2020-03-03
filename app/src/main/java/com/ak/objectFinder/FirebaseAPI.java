@@ -66,6 +66,11 @@ public class FirebaseAPI extends FirebaseMessagingService {
         });
     }
 
+    public static String getCurrentUID() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+    }
+
     public static void createUser() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -75,7 +80,20 @@ public class FirebaseAPI extends FirebaseMessagingService {
         db.collection("users").document(userId).set(data);
     }
 
-    public static void getRequesterID(String requestID) {
+    public static void getRequesterID(String requestID, GetInfoCallback<String> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("helpRequests").document(requestID);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                callback.onSuccess(documentSnapshot.getString("user"));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onError(e);
+            }
+        });
 
     }
 
@@ -86,11 +104,13 @@ public class FirebaseAPI extends FirebaseMessagingService {
         imageRef.putFile(imgUri);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         String defaultText = "Waiting for reply...";
         Map<String, Object> data = new HashMap<>();
         data.put("imagePath", path);
         data.put("text", defaultText);
+        data.put("user", userId);
 
         DocumentReference docRef = db.collection("helpRequests").document();
         docRef.set(data);
@@ -195,6 +215,13 @@ public class FirebaseAPI extends FirebaseMessagingService {
             bmImage.setImageBitmap(result);
         }
     }
+
+    public interface GetInfoCallback<T> {
+        void onSuccess(T info);
+
+        void onError(Exception e);
+    }
+
 }
 
 

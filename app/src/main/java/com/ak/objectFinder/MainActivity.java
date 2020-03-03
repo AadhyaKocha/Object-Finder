@@ -2,6 +2,8 @@ package com.ak.objectFinder;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
@@ -33,17 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sp = getSharedPreferences("com.ak.objectFinder", Context.MODE_PRIVATE);
-
-        if (getIntent().getExtras() != null) {
-            Log.e("scott", "extras do exist");
-            String requestId = getIntent().getExtras().getString("requestId");
-            if (requestId != null) {
-                Intent intent = new Intent(this, HelpSignActivity.class);
-                intent.putExtra("requestId", requestId);
-                startActivity(intent);
-            }
-        }
-
+        createNotificationChannel();
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
@@ -60,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ToggleButton audioToggle = findViewById(R.id.audioBtn);
-        FirebaseAPI.getNotificationStatus(audioToggle);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
@@ -73,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ToggleButton notifyToggle = findViewById(R.id.notifyBtn);
+        FirebaseAPI.getNotificationStatus(notifyToggle);
         notifyToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
@@ -131,6 +122,22 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 0);
+        }
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "channel";
+            String description = "eye spy channel";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("eyespy", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 }
