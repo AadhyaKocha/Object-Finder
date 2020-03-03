@@ -12,8 +12,8 @@
         <Button
             android:id="@+id/find_glasses"
             android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:layout_marginTop="3dp"
+            android:layout_height="185dp"
+            android:layout_marginTop="6dp"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
@@ -22,27 +22,13 @@
             android:textSize="30dp"
             android:backgroundTint="@color/orange_yellow"
             android:background="@drawable/round_btn"
-            android:onClick="onFindGlassesClick"/>
-
-        <Button
-            android:id="@+id/find_phone"
-            android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:drawableLeft="@drawable/small_phone"
-            android:text="Find Mobile Phone"
-            android:textSize="30dp"
-            android:backgroundTint="@color/princeton_orange"
-            android:background="@drawable/round_btn"
-            android:onClick="onFindPhoneClick"/>
+            android:onClick="onFindGlassesClick"
+            android:paddingStart="20dp"/>
 
         <Button
             android:id="@+id/find_bag"
             android:layout_width="match_parent"
-            android:layout_height="135dp"
+            android:layout_height="185dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="3dp"
@@ -50,24 +36,26 @@
             android:drawableLeft="@drawable/small_bag"
             android:text="Find Bag"
             android:textSize="30dp"
-            android:backgroundTint="@color/teal_blue"
+            android:backgroundTint="@color/princeton_orange"
             android:background="@drawable/round_btn"
+            android:paddingStart="20dp"
             android:onClick="onFindBagClick"/>
 
         <Button
             android:id="@+id/find_jacket"
             android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
+            android:layout_height="185dp"
             android:layout_marginLeft="3dp"
+            android:layout_marginTop="3dp"
             android:layout_marginRight="3dp"
-            android:drawableLeft="@drawable/small_jacket"
-            android:text="Find Jacket"
-            android:textSize="30dp"
-            android:backgroundTint="@color/independence"
+            android:layout_marginBottom="3dp"
             android:background="@drawable/round_btn"
-            android:onClick="onFindJacketClick"/>
+            android:backgroundTint="@color/royal_purple"
+            android:drawableLeft="@drawable/small_jacket"
+            android:onClick="onFindJacketClick"
+            android:paddingStart="20dp"
+            android:text="Find Jacket"
+            android:textSize="30dp" />
 
     </LinearLayout>
 
