@@ -41,15 +41,6 @@ public class ChooseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onFindPhoneClick(View view){
-
-        speechtext = "You have chosen mobile phone";
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, FindObject.class);
-        intent.putExtra(Globals.OBJECT_TYPE, Globals.phone);
-        startActivity(intent);
-    }
-
     public void onFindJacketClick(View view){
         speechtext = "You have chosen jacket";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
