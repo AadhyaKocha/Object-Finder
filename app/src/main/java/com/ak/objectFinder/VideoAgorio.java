@@ -94,6 +94,7 @@ public class VideoAgorio extends AppCompatActivity {
             checkSelfPermission(REQUESTED_PERMISSIONS[2], PERMISSION_RED_ID)) {
             initEngineAndJoinChannel();
         }
+        initEngineAndJoinChannel();
     }
 
     @Override
@@ -111,7 +112,6 @@ public class VideoAgorio extends AppCompatActivity {
         callBtn = findViewById(R.id.btn_call);
         muteBtn = findViewById(R.id.btn_mute);
         switchCameraBtn = findViewById(R.id.btn_switch_camera);
-
     }
 
     private Boolean checkSelfPermission(String permission, int requestCode) {
