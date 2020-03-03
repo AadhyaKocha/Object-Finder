@@ -35,7 +35,7 @@ public class FindObject extends AppCompatActivity {
     boolean vibrate = false;
     private String goalObject;
     private int viewCount = 0;
-
+    private Vibrator vibe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +53,15 @@ public class FindObject extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        vibe.cancel();
+    }
+
     private void startCamera() {
         CameraX.unbindAll();
-        Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         long[] pattern = {0, 1000000000};
         Size screen = new Size(textureView.getWidth(), textureView.getHeight()); //size of the screen
 
