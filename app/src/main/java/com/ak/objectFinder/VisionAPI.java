@@ -21,7 +21,14 @@ public class VisionAPI {
         FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance()
                 .getOnDeviceTextRecognizer();
         detector.processImage(image)
-                .addOnSuccessListener(firebaseVisionText -> callback.onSuccess(firebaseVisionText.getText()))
+                .addOnSuccessListener(firebaseVisionText -> {
+                            String text = firebaseVisionText.getText();
+                            if (text == "") {
+                                text = "No text found";
+                            }
+                            callback.onSuccess(text);
+                        }
+                )
                 .addOnFailureListener(e -> callback.onError(e));
     }
 
