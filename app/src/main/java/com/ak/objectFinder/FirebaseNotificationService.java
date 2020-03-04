@@ -12,13 +12,15 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 
 public class FirebaseNotificationService extends FirebaseMessagingService {
+    String requestId;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> data;
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             data = remoteMessage.getData();
-            final String requestId = data.get("requestId");
+            requestId = data.get("requestId");
             FirebaseAPI.getRequesterID(requestId, new FirebaseAPI.GetInfoCallback<String>() {
                 @Override
                 public void onSuccess(String info) {
@@ -41,7 +43,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
         Intent intent = new Intent(this, HelpSignActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("requestId", requestId);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "eyespy")
                 .setSmallIcon(R.drawable.baseline_live_help_black_48)
