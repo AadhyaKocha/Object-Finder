@@ -63,7 +63,7 @@
         android:backgroundTint="@color/orange_yellow"
         android:onClick="onClickedRead"
         android:text="@string/read_btn"
-        android:textSize="35dp"/>
+        android:textSize="37dp"/>
 
     <TextView
         android:id="@+id/spaceSecond"
@@ -74,49 +74,35 @@
     <ToggleButton
         android:id="@+id/audioBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/audioTxt"
+        android:layout_height="143dp"
+        android:layout_below="@id/callBtn"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/spaceSecond" />
+        android:layout_toRightOf="@id/spaceSecond"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:text="Audio Toggle Button"
+        android:textOn="Audio ON"
+        android:textOff="Audio OFF"
+        android:textSize="30dp"
+        android:background="@drawable/box_layout"/>
 
     <ToggleButton
         android:id="@+id/notifyBtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/notifyTxt"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/spaceSecond" />
-
-    <TextView
-        android:id="@+id/audioTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/callBtn"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="3dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_toRightOf="@id/spaceSecond"
-        android:text="@string/audio_txt"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="35dp"
-        android:background="@drawable/box_layout"/>
-
-    <TextView
-        android:id="@+id/notifyTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="143dp"
         android:layout_below="@id/audioBtn"
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/spaceSecond"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
-        android:text="@string/notify_txt"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="35dp"
+        android:text="Notify Toggle Button"
+        android:textOn="Notify ON"
+        android:textOff="Notify OFF"
+        android:textSize="30dp"
         android:background="@drawable/box_layout"/>
 
 </RelativeLayout>
@@ -140,6 +126,66 @@
 
 
 
+
+<!--<TextView-->
+<!--android:id="@+id/audioTxt"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_below="@id/callBtn"-->
+<!--android:layout_alignParentRight="true"-->
+<!--android:layout_centerInParent="true"-->
+<!--android:layout_marginLeft="3dp"-->
+<!--android:layout_marginTop="3dp"-->
+<!--android:layout_marginRight="3dp"-->
+<!--android:layout_toRightOf="@id/spaceSecond"-->
+<!--android:text="@string/audio_txt"-->
+<!--android:textAlignment="center"-->
+<!--android:textColor="@color/black"-->
+<!--android:textSize="35dp"-->
+<!--android:background="@drawable/box_layout"/>-->
+
+<!--<TextView-->
+<!--android:id="@+id/notifyTxt"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_below="@id/audioBtn"-->
+<!--android:layout_alignParentRight="true"-->
+<!--android:layout_toRightOf="@id/spaceSecond"-->
+<!--android:layout_marginLeft="3dp"-->
+<!--android:layout_marginRight="3dp"-->
+<!--android:text="@string/notify_txt"-->
+<!--android:textAlignment="center"-->
+<!--android:textColor="@color/black"-->
+<!--android:textSize="35dp"-->
+<!--android:background="@drawable/box_layout"/>-->
+
+
+
+
+
+
+
+<!--<TextView-->
+<!--android:id="@+id/spaceSecond"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_centerHorizontal="true"/>-->
+
+<!--<ToggleButton-->
+<!--android:id="@+id/audioBtn"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_below="@id/audioTxt"-->
+<!--android:layout_alignParentRight="true"-->
+<!--android:layout_toRightOf="@id/spaceSecond"/>-->
+
+<!--<ToggleButton-->
+<!--android:id="@+id/notifyBtn"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_below="@id/notifyTxt"-->
+<!--android:layout_alignParentRight="true"-->
+<!--android:layout_toRightOf="@id/spaceSecond" />-->
 
 <!--<TextView-->
 <!--android:id="@+id/audioTxt"-->

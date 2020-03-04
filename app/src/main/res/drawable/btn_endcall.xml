@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/baseline_call_end_black_18dp"/>
-    <item android:drawable="@drawable/baseline_call_end_black_18dp"/>
+    <item android:state_pressed="true" android:drawable="@drawable/decline_new"/>
+    <item android:drawable="@drawable/decline_new"/>
 </selector>
+
+
+<!--    "@drawable/baseline_call_end_black_18dp"-->
