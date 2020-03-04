@@ -69,9 +69,20 @@ public class VideoAgorio extends AppCompatActivity {
             });
         }
 
+//        @Override
+//        public void onFirstRemoteVideoFrame(final int uid, int width, int height, int elapsed) {
+//            super.onFirstRemoteVideoFrame(uid, width, height, elapsed);
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Log.i("agora", "First remote video frame, uid: " + (uid & 0xFFFFFFFFL));
+//                    setupRemoteVideo(uid);
+//                }
+//            });
+//        }
+
         @Override
-        public void onFirstRemoteVideoFrame(final int uid, int width, int height, int elapsed) {
-            super.onFirstRemoteVideoFrame(uid, width, height, elapsed);
+        public void onFirstRemoteVideoDecoded(final int uid, int width, int height, int elapsed) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -249,68 +260,3 @@ public class VideoAgorio extends AppCompatActivity {
     }
 
 }
-
-//    private static final String[] REQUESTED_PERMISSIONS = {
-//            Manifest.permission.RECORD_AUDIO,
-//            Manifest.permission.CAMERA,
-//            Manifest.permission.WRITE_EXTERNAL_STORAGE
-//    };
-//
-//    private RtcEngine rtcEngine;
-//    private IRtcEngineEventHandler RtcEventHandler = new IRtcEngineEventHandler() {
-//        @Override
-//        public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
-//            setupRemoteVideo(uid);
-//        }
-//
-//        @Override
-//        public void onUserJoined(int uid, int elapsed) {
-//            super.onUserJoined(uid, elapsed);
-//        }
-//    };
-//
-//    private void setupRemoteVideo(int uid) {
-//        FrameLayout container = findViewById(R.id.remote_video_vc);
-//        SurfaceView surfaceView = RtcEngine.CreateRendererView(getBaseContext());
-//        container.addView(surfaceView);
-//        rtcEngine.setupRemoteVideo(new VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_ADAPTIVE, uid));
-//        surfaceView.setTag(uid);
-//    }
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_video_agorio);
-//
-//        initialiseRtcEngine();
-//    }
-//
-//    private void setupVideoProfile() {
-//        rtcEngine.enableAudio();
-//        rtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_240P_3, false);
-//    }
-//
-//    private void initialiseRtcEngine() {
-//        try {
-//            rtcEngine = RtcEngine.create(getBaseContext(), getString(R.string.agora_app_id), RtcEventHandler);
-//            joinRoom();
-//            localVideoConfig();
-//            setupVideoProfile();
-//        }
-//        catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void joinRoom() {
-//        rtcEngine.joinChannel(null, "aye", null, new Random().nextInt(100000)+1);
-//    }
-//
-//    private void localVideoConfig() {
-//        FrameLayout container = findViewById(R.id.local_vc);
-//        SurfaceView surfaceView = RtcEngine.CreateRendererView(getBaseContext());
-//        surfaceView.setZOrderMediaOverlay(true);
-//        container.addView(surfaceView);
-//        rtcEngine.setupLocalVideo(new VideoCanvas(surfaceView, VideoCanvas.RENDER_MODE_ADAPTIVE, 0));
-//
-//    }
