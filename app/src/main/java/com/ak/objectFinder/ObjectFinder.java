@@ -32,6 +32,7 @@ public class ObjectFinder extends AppCompatActivity {
                 // This should never be reached.
             }
         }, ContextCompat.getMainExecutor(this));
+        
 
     }
 
