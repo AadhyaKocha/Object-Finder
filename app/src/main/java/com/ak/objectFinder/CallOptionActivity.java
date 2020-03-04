@@ -1,16 +1,12 @@
 package com.ak.objectFinder;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.Locale;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CallOptionActivity extends AppCompatActivity {
     private TextToSpeech tts;
@@ -37,7 +33,7 @@ public class CallOptionActivity extends AppCompatActivity {
         speechtext = "I hope we can help you scan the room!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
 
-        Intent intent = new Intent(this, FindObject.class);
+        Intent intent = new Intent(this, ObjectFinder.class);
         startActivity(intent);
     }
 

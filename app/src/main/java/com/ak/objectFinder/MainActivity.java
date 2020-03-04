@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 // The toggle is enabled
                 // The toggle is disabled
                 Globals.audioPref = isChecked;
-                sp.edit().putBoolean(Globals.audio_key,isChecked).commit();
+                sp.edit().putBoolean(Globals.audio_key, isChecked).commit();
                 speechtext = "Audio settings on";
                 TextToSpeechHelper.speak(getApplicationContext(), speechtext);
             }

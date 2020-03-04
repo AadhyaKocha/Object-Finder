@@ -1,9 +1,5 @@
 package com.ak.objectFinder;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,6 +10,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import io.agora.rtc.IRtcEngineEventHandler;
 import io.agora.rtc.RtcEngine;
@@ -114,7 +114,7 @@ public class VideoAgorio extends AppCompatActivity {
         if (!mCallEnd) {
             leaveChannel();
         }
-        rtcEngine.destroy();
+        RtcEngine.destroy();
     }
 
     private void initUi() {
