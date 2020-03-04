@@ -60,14 +60,12 @@ public class FindObject extends AppCompatActivity {
     }
 
     private void startCamera() {
-        CameraX.unbindAll();
         vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         long[] pattern = {0, 1000000000};
         Size screen = new Size(textureView.getWidth(), textureView.getHeight()); //size of the screen
 
         PreviewConfig pConfig = new PreviewConfig.Builder().setTargetResolution(screen).build();
         Preview preview = new Preview(pConfig);
-
         preview.setOnPreviewOutputUpdateListener(
                 output -> textureView.setSurfaceTexture(output.getSurfaceTexture()));
 

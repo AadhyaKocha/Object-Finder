@@ -2,6 +2,7 @@ package com.ak.objectFinder;
 
 import android.media.Image;
 
+import androidx.annotation.experimental.UseExperimental;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageProxy;
 
@@ -37,6 +38,7 @@ public class ObjectIdentifier implements ImageAnalysis.Analyzer {
         }
     }
 
+    @UseExperimental(markerClass = androidx.camera.core.ExperimentalGetImage.class)
     public void analyze(ImageProxy imageProxy, int degrees) {
         if (imageProxy == null || imageProxy.getImage() == null || callback == null) {
             return;
