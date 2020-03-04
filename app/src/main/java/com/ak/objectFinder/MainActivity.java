@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextToSpeech tts;
     private String speechtext = "What do you need help with today?";
+    ToggleButton audioToggle;
 
 
     @Override
@@ -46,17 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
         if (sp.contains(Globals.audio_key)){
             Globals.audioPref = sp.getBoolean(Globals.audio_key, false);
+            audioToggle = findViewById(R.id.audioBtn);
+            audioToggle.setChecked(true);
+
         } else {
             Globals.audioPref = false;
         }
 
-        ToggleButton audioToggle = findViewById(R.id.audioBtn);
+        audioToggle = findViewById(R.id.audioBtn);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
                 // The toggle is disabled
                 Globals.audioPref = isChecked;
-                sp.edit().putBoolean(Globals.audio_key,isChecked);
+                sp.edit().putBoolean(Globals.audio_key,isChecked).commit();
                 speechtext = "Audio settings on";
                 TextToSpeechHelper.speak(getApplicationContext(), speechtext);
             }
@@ -94,9 +99,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickedCall(View view) {
-        speechtext = "Call directly";
+//        speechtext = "Call directly";
+//        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+//        Intent intent = new Intent(this, CallOptionActivity.class);
+//        startActivity(intent);
+
+        speechtext = "Video call directly!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, CallOptionActivity.class);
+        Toast.makeText(this, "Waiting for others to connect", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, VideoAgorio.class);
         startActivity(intent);
     }
 

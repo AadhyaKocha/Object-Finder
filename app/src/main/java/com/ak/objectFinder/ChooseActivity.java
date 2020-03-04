@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class ChooseActivity extends AppCompatActivity {
     private TextToSpeech tts;
-    private String speechtext = "What do you want to find? Glasses or mobile phone?";
+    private String speechtext = "What do you want to find? Glasses, bag or jacket?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
