@@ -31,7 +31,7 @@ public class ChooseActivity extends AppCompatActivity {
 
         speechtext = "You have chosen glasses";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, FindObject.class);
+        Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.glasses);
         startActivity(intent);
     }
@@ -39,7 +39,7 @@ public class ChooseActivity extends AppCompatActivity {
     public void onFindJacketClick(View view){
         speechtext = "You have chosen jacket";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, FindObject.class);
+        Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.jacket);
         startActivity(intent);
     }
@@ -47,7 +47,7 @@ public class ChooseActivity extends AppCompatActivity {
     public void onFindBagClick(View view){
         speechtext = "You have chosen bag";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, FindObject.class);
+        Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.bag);
         startActivity(intent);
     }

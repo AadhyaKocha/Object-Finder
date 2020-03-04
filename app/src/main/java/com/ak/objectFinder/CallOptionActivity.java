@@ -33,7 +33,7 @@ public class CallOptionActivity extends AppCompatActivity {
         speechtext = "I hope we can help you scan the room!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
 
-        Intent intent = new Intent(this, FindObject.class);
+        Intent intent = new Intent(this, ObjectFinder.class);
         startActivity(intent);
     }
 
