@@ -23,39 +23,51 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="portrait">
-        <activity android:name=".VideoAgorio"></activity>
+        <activity android:name=".VideoAgorio"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ThankYouActivity" />
+            android:name=".ThankYouActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".VideoCall" />
+            android:name=".VideoCall"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".FindObject" />
+            android:name=".FindObject"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".LogInActivity" />
+            android:name=".LogInActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".HelpSignActivity" />
+            android:name=".HelpSignActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ChooseActivity" />
+            android:name=".ChooseActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".CallOptionActivity" />
+            android:name=".CallOptionActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ScanActivity" />
+            android:name=".ScanActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ReadTextActivity" />
+            android:name=".ReadTextActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/SplashScreen">
+            android:theme="@style/SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
