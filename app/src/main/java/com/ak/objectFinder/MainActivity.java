@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextToSpeech tts;
     private String speechtext = "What do you need help with today?";
+    ToggleButton audioToggle;
 
 
     @Override
@@ -47,17 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
         if (sp.contains(Globals.audio_key)){
             Globals.audioPref = sp.getBoolean(Globals.audio_key, false);
+            audioToggle = findViewById(R.id.audioBtn);
+            audioToggle.setChecked(true);
+
         } else {
             Globals.audioPref = false;
         }
 
-        ToggleButton audioToggle = findViewById(R.id.audioBtn);
+        audioToggle = findViewById(R.id.audioBtn);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
                 // The toggle is disabled
                 Globals.audioPref = isChecked;
-                sp.edit().putBoolean(Globals.audio_key,isChecked);
+                sp.edit().putBoolean(Globals.audio_key,isChecked).commit();
                 speechtext = "Audio settings on";
                 TextToSpeechHelper.speak(getApplicationContext(), speechtext);
             }
