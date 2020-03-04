@@ -4,23 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThankYouActivity">
+    tools:context=".ThankYouActivity"
+    android:background="@drawable/orange_gradient">
 
     <TextView
         android:id="@+id/thankYouTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/thank_you"
-        android:textColor="@color/orange_yellow"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="70dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/thankYouTxt"
-        android:text="@string/appreciation"
-        android:textSize="70dp"
-        android:textColor="@color/princeton_orange"/>
 
 </RelativeLayout>

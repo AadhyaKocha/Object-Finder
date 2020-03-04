@@ -33,9 +33,6 @@
             android:name=".ThankYouActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".VideoCall"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".FindObject"
             android:screenOrientation="portrait"/>
         <activity
