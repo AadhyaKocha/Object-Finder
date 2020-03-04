@@ -3,6 +3,7 @@ package com.ak.objectFinder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ public class HelpSignActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_sign);
         requestId = getIntent().getExtras().getString("requestId");
+        Log.e("scott", requestId);
         inputSignText = findViewById(R.id.sign_text);
         ImageView imageView = findViewById(R.id.sign);
         FirebaseAPI.setImageViewFromRequest(requestId, imageView, this);
