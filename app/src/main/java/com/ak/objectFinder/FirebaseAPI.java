@@ -23,7 +23,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FirebaseStorage;
@@ -113,7 +112,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
         DocumentReference docRef = db.collection("helpRequests").document();
         docRef.set(data);
 
-        ListenerRegistration registration = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
@@ -133,6 +132,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
     public static void sendTextToUser(String requestID, String text) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("helpRequests").document(requestID).update("text", text);
+        Log.e("scott", requestID + " " + text);
     }
 
     @Override

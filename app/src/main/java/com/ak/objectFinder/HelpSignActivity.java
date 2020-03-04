@@ -3,7 +3,6 @@ package com.ak.objectFinder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +35,7 @@ public class HelpSignActivity extends AppCompatActivity {
         FirebaseAPI.sendTextToUser(requestId, sign_text);
         Intent intent = new Intent(this, ThankYouActivity.class);
         startActivity(intent);
-        System.exit(0);
+        finish();
     }
 
 
