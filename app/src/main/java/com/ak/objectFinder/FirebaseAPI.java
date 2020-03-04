@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +23,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FirebaseStorage;
@@ -115,7 +112,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
         DocumentReference docRef = db.collection("helpRequests").document();
         docRef.set(data);
 
-        ListenerRegistration registration = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
@@ -129,32 +126,13 @@ public class FirebaseAPI extends FirebaseMessagingService {
             }
         });
 
-        resultTextView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.e("scott", "changed!");
-                if (!((s.toString()).equals(defaultText))) {
-                    registration.remove();
-                    Log.e("scott", "removed!");
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
     }
 
     public static void sendTextToUser(String requestID, String text) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("helpRequests").document(requestID).update("text", text);
+        Log.e("scott", requestID + " " + text);
     }
 
     @Override
