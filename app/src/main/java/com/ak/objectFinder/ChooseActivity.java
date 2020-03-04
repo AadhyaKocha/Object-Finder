@@ -1,20 +1,15 @@
 package com.ak.objectFinder;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Locale;
-
 public class ChooseActivity extends AppCompatActivity {
     private TextToSpeech tts;
-    private String speechtext = "What do you want to find? Glasses or mobile phone?";
+    private String speechtext = "What do you want to find? Glasses, bag or jacket?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

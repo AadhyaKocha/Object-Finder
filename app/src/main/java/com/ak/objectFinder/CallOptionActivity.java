@@ -1,16 +1,12 @@
 package com.ak.objectFinder;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.Locale;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CallOptionActivity extends AppCompatActivity {
     private TextToSpeech tts;
@@ -54,7 +50,8 @@ public class CallOptionActivity extends AppCompatActivity {
     public void onCallDirectlyClick(View view){
         speechtext = "Video call directly!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-//        Intent intent = new Intent(this, VideoCall.class);
+        Toast.makeText(this, "Waiting for others to connect", Toast.LENGTH_SHORT).show();
+
         Intent intent = new Intent(this, VideoAgorio.class);
         startActivity(intent);
     }
