@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -94,9 +95,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickedCall(View view) {
-        speechtext = "Call directly";
+//        speechtext = "Call directly";
+//        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+//        Intent intent = new Intent(this, CallOptionActivity.class);
+//        startActivity(intent);
+
+        speechtext = "Video call directly!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
-        Intent intent = new Intent(this, CallOptionActivity.class);
+        Toast.makeText(this, "Waiting for others to connect", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, VideoAgorio.class);
         startActivity(intent);
     }
 
