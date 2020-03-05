@@ -32,17 +32,25 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     public FirebaseUser mUser;
     private FirebaseAuth mAuth;
-    private TextToSpeech tts;
     private String speechtext = "What do you need help with today?";
     ToggleButton audioToggle;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
+    TextToSpeechHelper speaker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ToggleButton notifyToggle = findViewById(R.id.notifyBtn);
+        ToggleButton audioToggle = findViewById(R.id.audioBtn);
+
+        notifyToggle.setChecked(true);
+        audioToggle.setChecked(true);
+
         SharedPreferences sp = getSharedPreferences("com.ak.objectFinder", Context.MODE_PRIVATE);
         createNotificationChannel();
+        speaker = new TextToSpeechHelper(this);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
@@ -54,14 +62,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (sp.contains(Globals.audio_key)){
             Globals.audioPref = sp.getBoolean(Globals.audio_key, false);
-            audioToggle = findViewById(R.id.audioBtn);
-            audioToggle.setChecked(true);
+            audioToggle.setChecked(Globals.audioPref);
 
         } else {
-            Globals.audioPref = false;
+            Globals.audioPref = true;
         }
 
-        audioToggle = findViewById(R.id.audioBtn);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
@@ -77,30 +83,39 @@ public class MainActivity extends AppCompatActivity {
 
                 Globals.audioPref = isChecked;
                 sp.edit().putBoolean(Globals.audio_key, isChecked).commit();
-                speechtext = "Audio settings on";
-                TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+                if (isChecked) {
+                    speechtext = "Audio settings on";
+                    speaker.speak(speechtext);
+                }
             }
         });
 
-        ToggleButton notifyToggle = findViewById(R.id.notifyBtn);
-        FirebaseAPI.getNotificationStatus(notifyToggle);
-        notifyToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // The toggle is enabled
-                // The toggle is disabled
-                buttonView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
-                        vb.vibrate(70);
-                        return false;
+        FirebaseAPI.getNotificationStatus(notifyToggle, new FirebaseAPI.GetInfoCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean info) {
+                notifyToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        buttonView.setOnTouchListener(new View.OnTouchListener() {
+                            @Override
+                            public boolean onTouch(View v, MotionEvent event) {
+                                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                                vb.vibrate(70);
+                                return false;
+                            }
+                        });
+
+                        Globals.notifyPref = isChecked;
+                        FirebaseAPI.setNotificationStatus(isChecked);
+                        speechtext = "Notifications setting changed";
+                        speaker.speak(speechtext);
                     }
                 });
+            }
 
-                Globals.notifyPref = isChecked;
-                FirebaseAPI.setNotificationStatus(isChecked);
-                speechtext = "Notifications setting changed";
-                TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+            @Override
+            public void onError(Exception e) {
+
             }
         });
 
@@ -117,12 +132,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
+        speaker.cancel();
     }
 
     public void onClickedScan(View view) {
@@ -136,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         speechtext = "Scan room";
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        speaker.speak(speechtext);
         Intent intent = new Intent(this, ChooseActivity.class);
         startActivity(intent);
     }
@@ -156,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         speechtext = "Video call directly!";
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        speaker.speak(speechtext);
         Toast.makeText(this, "Waiting for others to connect", Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(this, VideoAgorio.class);
@@ -174,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         speechtext = "Read text";
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        speaker.speak(speechtext);
         Intent intent = new Intent(this, ReadTextActivity.class);
         startActivity(intent);
 

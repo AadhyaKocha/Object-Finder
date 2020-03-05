@@ -47,7 +47,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
         }
     }
 
-    public static void getNotificationStatus(ToggleButton button) {
+    public static void getNotificationStatus(ToggleButton button, GetInfoCallback<Boolean> callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -59,6 +59,8 @@ public class FirebaseAPI extends FirebaseMessagingService {
                         button.setChecked(document.getBoolean("notify"));
                     }
                 }
+
+                callback.onSuccess(true);
             }
         });
     }
@@ -84,6 +86,23 @@ public class FirebaseAPI extends FirebaseMessagingService {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 callback.onSuccess(documentSnapshot.getString("user"));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onError(e);
+            }
+        });
+
+    }
+
+    public static void getCallerID(String callID, GetInfoCallback<String> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("calls").document(callID);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                callback.onSuccess(documentSnapshot.getString("user1"));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -122,7 +141,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
                 if (snapshot != null && snapshot.exists()) {
                     String text = snapshot.getString("text");
                     resultTextView.setText(text);
-                    TextToSpeechHelper.speak(c, text);
+                    new TextToSpeechHelper(c, text);
                 }
             }
         });
@@ -130,10 +149,28 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
+    public static String startCall() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Map<String, Object> data = new HashMap<>();
+        data.put("user1", userId);
+        data.put("user2", "");
+
+        DocumentReference docRef = db.collection("calls").document();
+        docRef.set(data);
+
+        return docRef.getId();
+    }
+
     public static void sendTextToUser(String requestID, String text) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("helpRequests").document(requestID).update("text", text);
-        Log.e("scott", requestID + " " + text);
+    }
+
+    public static void joinCall(String callId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db.collection("calls").document(callId).update("user2", userId);
     }
 
     @Override
@@ -143,6 +180,43 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
         db.collection("users").document(userId).update("token", token);
 
+    }
+
+    public static void listenForHelpResponseText(String requestId, GetInfoCallback<String> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("helpRequests").document(requestId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    callback.onError(e);
+                    return;
+                }
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    callback.onSuccess(documentSnapshot.getString("text"));
+                }
+            }
+        });
+    }
+
+    public static void listenForHelpResponseCall(String callId, GetInfoCallback<Boolean> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("calls").document(callId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    callback.onError(e);
+                    return;
+                }
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    String user2 = documentSnapshot.getString("user2");
+                    if (user2 != null && user2.length() > 2) {
+                        callback.onSuccess(true);
+                        return;
+                    }
+                    callback.onSuccess(false);
+                }
+            }
+        });
     }
 
     public static void setImageViewFromRequest(String requestId, ImageView imageView, Context context) {

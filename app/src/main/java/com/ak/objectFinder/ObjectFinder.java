@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Size;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.experimental.UseExperimental;
@@ -36,12 +37,18 @@ public class ObjectFinder extends AppCompatActivity {
     private Vibrator vibe;
     private boolean vibrating = false;
     private String goalObject = "";
+    private Context con;
+    private FrameLayout cameraFrame;
+    TextToSpeechHelper speaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        con = this;
         setContentView(R.layout.activity_object_finder);
         goalObject = getIntent().getStringExtra(Globals.OBJECT_TYPE);
+        cameraFrame = findViewById(R.id.cameraFrame);
+        speaker = new TextToSpeechHelper(this);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -57,9 +64,10 @@ public class ObjectFinder extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
         vibe.cancel();
+        speaker.cancel();
     }
 
     @UseExperimental(markerClass = androidx.camera.core.ExperimentalGetImage.class)
@@ -97,6 +105,8 @@ public class ObjectFinder extends AppCompatActivity {
                                             if (!vibrating) {
                                                 vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
                                                 vibrating = true;
+                                                speaker.speak("Object detected");
+                                                cameraFrame.setBackgroundColor(getResources().getColor(R.color.yellow_green));
                                             }
                                             return;
                                         }
@@ -104,6 +114,8 @@ public class ObjectFinder extends AppCompatActivity {
                                     if (vibrating) {
                                         vibe.cancel();
                                         vibrating = false;
+                                        speaker.speak("Object lost");
+                                        cameraFrame.setBackgroundColor(getResources().getColor(R.color.rubine_red));
                                     }
                                 }
                             })

@@ -48,6 +48,8 @@ public class VideoAgorio extends AppCompatActivity {
     private boolean mCallEnd;
     private boolean mMuted;
 
+    private String channelID;
+
     private IRtcEngineEventHandler RtcEventHandler = new IRtcEngineEventHandler() {
         @Override
         public void onJoinChannelSuccess(String channel, final int uid, int elapsed) {
@@ -100,6 +102,13 @@ public class VideoAgorio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_agorio);
+        String callId = getIntent().getStringExtra("callId");
+        if (callId != null) {
+            FirebaseAPI.joinCall(callId);
+            channelID = callId;
+        } else {
+            channelID = FirebaseAPI.startCall();
+        }
 
         initUi();
 
