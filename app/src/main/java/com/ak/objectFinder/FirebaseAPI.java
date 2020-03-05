@@ -145,6 +145,22 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
+    public static void listenForHelpResponse(String requestId, GetInfoCallback<String> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("helpRequests").document(requestId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    callback.onError(e);
+                    return;
+                }
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    callback.onSuccess(documentSnapshot.getString("text"));
+                }
+            }
+        });
+    }
+
     public static void setImageViewFromRequest(String requestId, ImageView imageView, Context context) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("helpRequests").document(requestId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

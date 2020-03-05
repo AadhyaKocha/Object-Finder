@@ -1,6 +1,8 @@
 package com.ak.objectFinder;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
@@ -54,7 +56,27 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(0, builder.build());
+        int hash = requestId.hashCode();
+        notificationManager.notify(hash, builder.build());
+        listenAndCancel(hash);
+    }
+
+    public void listenAndCancel(int hash) {
+        FirebaseAPI.listenForHelpResponse(requestId, new FirebaseAPI.GetInfoCallback<String>() {
+            @Override
+            public void onSuccess(String info) {
+                if (!info.equals("Waiting for reply...")) {
+                    String ns = Context.NOTIFICATION_SERVICE;
+                    NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(ns);
+                    nMgr.cancel(hash);
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
     }
 
 }
