@@ -3,10 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/cameraFrame"
+    android:background="@color/rubine_red"
     tools:context=".ObjectFinder">
 
     <androidx.camera.view.PreviewView
         android:id="@+id/preview_view"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

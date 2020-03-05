@@ -211,7 +211,7 @@ public class VideoAgorio extends AppCompatActivity {
         if (TextUtils.isEmpty(token)) {
             token = null;
         }
-        rtcEngine.joinChannel(token, channelID, "", 0);
+        rtcEngine.joinChannel(token, "EyeSpy65", "", 0);
     }
 
     private void leaveChannel() {
