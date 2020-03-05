@@ -47,7 +47,7 @@
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:text="@string/call_btn"
-            android:backgroundTint="@color/royal_purple"
+            android:backgroundTint="@color/light_crimson"
             android:background="@drawable/round_btn"
             android:textSize="30dp"
             android:onClick="onCallDirectlyClick"/>

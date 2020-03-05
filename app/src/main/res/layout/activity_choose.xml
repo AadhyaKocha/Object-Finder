@@ -51,7 +51,7 @@
             android:layout_marginRight="3dp"
             android:layout_marginBottom="3dp"
             android:background="@drawable/round_btn"
-            android:backgroundTint="@color/royal_purple"
+            android:backgroundTint="@color/light_crimson"
             android:drawableLeft="@drawable/small_jacket"
             android:onClick="onFindJacketClick"
             android:paddingStart="20dp"

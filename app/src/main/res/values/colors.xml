@@ -15,6 +15,9 @@
     <color name="yellow_green">#9ECD43</color>
     <color name="spanish_crimson">#ED174B</color>
     <color name="white_smoke">#DCDCDC</color>
+    <color name="rubine_red">#CC0256</color>
+    <color name="light_crimson">#F67393</color>
+    <color name="aero">#75C0EA</color>
 
     <color name="local_bg">#827b92</color>
     <color name="remote_bg">#484258</color>
