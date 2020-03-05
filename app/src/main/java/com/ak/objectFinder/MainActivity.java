@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,13 +26,16 @@ import androidx.core.content.ContextCompat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     public FirebaseUser mUser;
     private FirebaseAuth mAuth;
     private TextToSpeech tts;
     private String speechtext = "What do you need help with today?";
     ToggleButton audioToggle;
-
+    private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
                 TextToSpeechHelper.speak(getApplicationContext(), speechtext);
             }
         });
+
+//        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//
+//        try {
+//            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+//        } catch (Exception e) {
+//            Toast.makeText(this, "Your device does not support Speech Input", Toast.LENGTH_SHORT);
+//        }
+
         checkPermissions(this);
     }
 
@@ -198,4 +212,31 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQUEST_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    String spokenText = result.get(0);
+                    if (spokenText == "call directly") {
+                        Toast.makeText(this, "Waiting for others to connect", Toast.LENGTH_SHORT).show();
+//                        speechtext = "Video call directly!";
+//                        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+//                        Toast.makeText(this, "Waiting for others to connect", Toast.LENGTH_SHORT).show();
+//
+//                        Intent intent = new Intent(this, VideoAgorio.class);
+//                        startActivity(intent);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    */
+
 }
