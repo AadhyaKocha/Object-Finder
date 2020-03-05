@@ -58,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
         audioToggle = findViewById(R.id.audioBtn);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // The toggle is enabled
-                // The toggle is disabled
                 Globals.audioPref = isChecked;
                 sp.edit().putBoolean(Globals.audio_key, isChecked).commit();
-                speechtext = "Audio settings on";
-                speaker.speak(speechtext);
+                if (isChecked) {
+                    speechtext = "Audio settings on";
+                    speaker.speak(speechtext);
+                }
             }
         });
 
