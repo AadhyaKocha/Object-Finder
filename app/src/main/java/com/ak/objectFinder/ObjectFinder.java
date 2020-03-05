@@ -36,10 +36,12 @@ public class ObjectFinder extends AppCompatActivity {
     private Vibrator vibe;
     private boolean vibrating = false;
     private String goalObject = "";
+    private Context con;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        con = this;
         setContentView(R.layout.activity_object_finder);
         goalObject = getIntent().getStringExtra(Globals.OBJECT_TYPE);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
@@ -97,6 +99,7 @@ public class ObjectFinder extends AppCompatActivity {
                                             if (!vibrating) {
                                                 vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
                                                 vibrating = true;
+                                                TextToSpeechHelper.speak(con, "Object detected");
                                             }
                                             return;
                                         }
@@ -104,6 +107,7 @@ public class ObjectFinder extends AppCompatActivity {
                                     if (vibrating) {
                                         vibe.cancel();
                                         vibrating = false;
+                                        TextToSpeechHelper.speak(con, "Object lost");
                                     }
                                 }
                             })
