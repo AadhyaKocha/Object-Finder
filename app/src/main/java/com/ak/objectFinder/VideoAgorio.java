@@ -45,6 +45,8 @@ public class VideoAgorio extends AppCompatActivity {
     private boolean mCallEnd;
     private boolean mMuted;
 
+    private String channelID;
+
     private IRtcEngineEventHandler RtcEventHandler = new IRtcEngineEventHandler() {
         @Override
         public void onJoinChannelSuccess(String channel, final int uid, int elapsed) {
@@ -100,8 +102,9 @@ public class VideoAgorio extends AppCompatActivity {
         String callId = getIntent().getStringExtra("callId");
         if (callId != null) {
             FirebaseAPI.joinCall(callId);
+            channelID = callId;
         } else {
-            FirebaseAPI.startCall();
+            channelID = FirebaseAPI.startCall();
         }
 
         initUi();
@@ -208,7 +211,7 @@ public class VideoAgorio extends AppCompatActivity {
         if (TextUtils.isEmpty(token)) {
             token = null;
         }
-        rtcEngine.joinChannel(token, "EyeSpy65", "", 0);
+        rtcEngine.joinChannel(token, channelID, "", 0);
     }
 
     private void leaveChannel() {

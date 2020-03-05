@@ -149,7 +149,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
-    public static void startCall() {
+    public static String startCall() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Map<String, Object> data = new HashMap<>();
@@ -158,6 +158,8 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
         DocumentReference docRef = db.collection("calls").document();
         docRef.set(data);
+
+        return docRef.getId();
     }
 
     public static void sendTextToUser(String requestID, String text) {
