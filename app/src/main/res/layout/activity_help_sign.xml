@@ -35,8 +35,6 @@
                 android:layout_marginTop="5dp"
                 android:textSize="25dp"
                 android:textColor="@color/black"
-                android:imeOptions="actionDone"
-                android:singleLine="true"
                 android:text="Enter text from the sign or " />
 
             <ImageView
@@ -50,6 +48,8 @@
             android:id="@+id/sign_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
             android:hint="Please enter the text from the image above" />
 
         <Button
