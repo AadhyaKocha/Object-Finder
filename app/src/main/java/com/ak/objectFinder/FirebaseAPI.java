@@ -94,7 +94,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
-    public static void getTextFromHelpers(Uri imgUri, TextView resultTextView) {
+    public static void getTextFromHelpers(Uri imgUri, TextView resultTextView, Context c) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         String path = "TextImages/" + new Date() + ".jpg";
         StorageReference imageRef = storageRef.child(path);
@@ -122,6 +122,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
                 if (snapshot != null && snapshot.exists()) {
                     String text = snapshot.getString("text");
                     resultTextView.setText(text);
+                    TextToSpeechHelper.speak(c, text);
                 }
             }
         });

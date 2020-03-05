@@ -1,11 +1,8 @@
 package com.ak.objectFinder;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -15,12 +12,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
-import java.util.Locale;
 
 public class ReadTextActivity extends AppCompatActivity {
 
@@ -40,7 +34,6 @@ public class ReadTextActivity extends AppCompatActivity {
 
         textView = findViewById(R.id.text_show);
         textView.setText("Loading...");
-        speechText = textView.getText().toString();
 
         call =  getIntent().getBooleanExtra("Call", false);
 
@@ -51,8 +44,6 @@ public class ReadTextActivity extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
-
-        TextToSpeechHelper.speak(getApplicationContext(), speechText);
     }
 
     @Override
@@ -83,11 +74,12 @@ public class ReadTextActivity extends AppCompatActivity {
             b2.setVisibility(View.GONE);
         }
         TextToSpeechHelper.speak(getApplicationContext(), speechText);
-        FirebaseAPI.getTextFromHelpers(imgUri, textView);
+        FirebaseAPI.getTextFromHelpers(imgUri, textView, this);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != Activity.RESULT_OK){
             if (!tryAgain){
                 finish();

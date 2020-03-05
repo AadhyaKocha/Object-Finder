@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white_smoke">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
+        android:id="@+id/scroll"
+        android:layout_height="200dp">
         <TextView
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
@@ -19,39 +19,49 @@
             android:textSize="40dp"
             android:id="@+id/text_show"
             android:textColor="@color/independence"/>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/try_again"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_below="@id/text_show"
-            android:drawableLeft="@drawable/small_redo"
-            android:text="@string/try_again"
-            android:textSize="30dp"
-            android:backgroundTint="@color/orange_yellow"
-            android:background="@drawable/round_btn"
-            android:onClick="onTryAgainClicked"/>
+    <TextView
+        android:id="@+id/scrollForMore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scroll"
+        android:layout_marginTop="15dp"
+        android:text="Scroll down for more..."
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="italic" />
 
-        <Button
-            android:id="@+id/help"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_below="@id/try_again"
-            android:drawableLeft="@drawable/small_people"
-            android:text="@string/ask_help"
-            android:textSize="30dp"
-            android:backgroundTint="@color/princeton_orange"
-            android:background="@drawable/round_btn"
-            android:onClick="onAskForHelpClicked"/>
+    <Button
+        android:id="@+id/try_again"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/scrollForMore"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/round_btn"
+        android:backgroundTint="@color/orange_yellow"
+        android:drawableLeft="@drawable/small_redo"
+        android:onClick="onTryAgainClicked"
+        android:text="@string/try_again"
+        android:textSize="30dp" />
 
-    </RelativeLayout>
+    <Button
+        android:id="@+id/help"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/try_again"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/round_btn"
+        android:backgroundTint="@color/princeton_orange"
+        android:drawableLeft="@drawable/small_people"
+        android:onClick="onAskForHelpClicked"
+        android:text="@string/ask_help"
+        android:textSize="30dp" />
 
-</ScrollView>
+</RelativeLayout>
