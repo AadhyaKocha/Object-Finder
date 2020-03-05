@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -17,6 +18,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> data;
+        Log.e("scott", "got");
         // Check if message contains a data payload.
         String requestId, callId;
         if (remoteMessage.getData().size() > 0) {
@@ -27,7 +29,8 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
                 FirebaseAPI.getRequesterID(requestId, new FirebaseAPI.GetInfoCallback<String>() {
                     @Override
                     public void onSuccess(String info) {
-                        if (!info.equals(FirebaseAPI.getCurrentUID())) {
+                        Log.e("scott", "info" + info);
+                        if (info.equals(FirebaseAPI.getCurrentUID())) {
                             createTextNotification(requestId);
                         }
                     }
@@ -114,6 +117,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         int hash = requestId.hashCode();
         notificationManager.notify(hash, builder.build());
+        Log.e("scott", "notify");
         listenAndCancelText(requestId, hash);
     }
 
@@ -122,6 +126,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
             @Override
             public void onSuccess(String info) {
                 if (!info.equals("Waiting for reply...")) {
+                    Log.e("scott", "cancel");
                     String ns = Context.NOTIFICATION_SERVICE;
                     NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(ns);
                     nMgr.cancel(hash);
