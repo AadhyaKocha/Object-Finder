@@ -2,35 +2,31 @@ package com.ak.objectFinder;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ChooseActivity extends AppCompatActivity {
-    private TextToSpeech tts;
     private String speechtext = "What do you want to find? Glasses, bag or jacket?";
-
+    TextToSpeechHelper speaker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        speaker = new TextToSpeechHelper(this, speechtext);
     }
 
     @Override
-    protected void onDestroy() {
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
+        speaker.cancel();
     }
+
 
     public void onFindGlassesClick(View view){
 
         speechtext = "You have chosen glasses";
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.glasses);
         startActivity(intent);
@@ -38,7 +34,7 @@ public class ChooseActivity extends AppCompatActivity {
 
     public void onFindJacketClick(View view){
         speechtext = "You have chosen jacket";
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.jacket);
         startActivity(intent);
@@ -46,7 +42,7 @@ public class ChooseActivity extends AppCompatActivity {
 
     public void onFindBagClick(View view){
         speechtext = "You have chosen bag";
-        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
+        speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.bag);
         startActivity(intent);

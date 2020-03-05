@@ -37,6 +37,7 @@ public class ObjectFinder extends AppCompatActivity {
     private boolean vibrating = false;
     private String goalObject = "";
     private Context con;
+    TextToSpeechHelper speaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class ObjectFinder extends AppCompatActivity {
         con = this;
         setContentView(R.layout.activity_object_finder);
         goalObject = getIntent().getStringExtra(Globals.OBJECT_TYPE);
+        speaker = new TextToSpeechHelper(this);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -59,9 +61,10 @@ public class ObjectFinder extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
         vibe.cancel();
+        speaker.cancel();
     }
 
     @UseExperimental(markerClass = androidx.camera.core.ExperimentalGetImage.class)
@@ -99,7 +102,7 @@ public class ObjectFinder extends AppCompatActivity {
                                             if (!vibrating) {
                                                 vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
                                                 vibrating = true;
-                                                TextToSpeechHelper.speak(con, "Object detected");
+                                                speaker.speak("Object detected");
                                             }
                                             return;
                                         }
@@ -107,7 +110,7 @@ public class ObjectFinder extends AppCompatActivity {
                                     if (vibrating) {
                                         vibe.cancel();
                                         vibrating = false;
-                                        TextToSpeechHelper.speak(con, "Object lost");
+                                        speaker.speak("Object lost");
                                     }
                                 }
                             })

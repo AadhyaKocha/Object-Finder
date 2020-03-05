@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -18,20 +17,19 @@ import java.io.File;
 
 public class ReadTextActivity extends AppCompatActivity {
 
-    private TextToSpeech tts;
     public static final int CAMERA_REQUEST_CODE = 1;
     private Uri imgUri;
     public TextView textView;
     private String speechText = "Take image of text to be read";
     private boolean call = false;
     private boolean tryAgain = false;
+    TextToSpeechHelper speaker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_text);
-        TextToSpeechHelper.speak(getApplicationContext(), speechText);
-
+        speaker = new TextToSpeechHelper(this, speechText);
         textView = findViewById(R.id.text_show);
         textView.setText("Loading...");
 
@@ -47,19 +45,17 @@ public class ReadTextActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
-        super.onDestroy();
+    public void onPause() {
+        super.onPause();
+        speaker.cancel();
     }
+
 
     public void onTryAgainClicked(View view){
         textView.setText("Loading...");
         speechText = "Try Again";
         tryAgain = true;
-        TextToSpeechHelper.speak(getApplicationContext(), speechText);
+        speaker.speak(speechText);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
@@ -73,7 +69,7 @@ public class ReadTextActivity extends AppCompatActivity {
             b1.setVisibility(View.GONE);
             b2.setVisibility(View.GONE);
         }
-        TextToSpeechHelper.speak(getApplicationContext(), speechText);
+        speaker.speak(speechText);
         FirebaseAPI.getTextFromHelpers(imgUri, textView, this);
     }
 
@@ -99,7 +95,7 @@ public class ReadTextActivity extends AppCompatActivity {
                         TextView text = findViewById(R.id.text_show);
                         text.setText(resultText);
                         speechText = resultText;
-                        TextToSpeechHelper.speak(getApplicationContext(), speechText);
+                        speaker.speak(speechText);
 
                     }
 

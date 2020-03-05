@@ -103,7 +103,7 @@ public class VideoAgorio extends AppCompatActivity {
         } else {
             FirebaseAPI.startCall();
         }
-        
+
         initUi();
 
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_RED_ID) &&

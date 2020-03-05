@@ -47,7 +47,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
         }
     }
 
-    public static void getNotificationStatus(ToggleButton button) {
+    public static void getNotificationStatus(ToggleButton button, GetInfoCallback<Boolean> callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -59,6 +59,8 @@ public class FirebaseAPI extends FirebaseMessagingService {
                         button.setChecked(document.getBoolean("notify"));
                     }
                 }
+
+                callback.onSuccess(true);
             }
         });
     }
@@ -139,7 +141,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
                 if (snapshot != null && snapshot.exists()) {
                     String text = snapshot.getString("text");
                     resultTextView.setText(text);
-                    TextToSpeechHelper.speak(c, text);
+                    new TextToSpeechHelper(c, text);
                 }
             }
         });
