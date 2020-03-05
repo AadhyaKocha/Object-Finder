@@ -26,7 +26,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"
         android:background="@drawable/round_btn"
-        android:backgroundTint="@color/royal_purple"
+        android:backgroundTint="@color/aero"
         android:onClick="onClickedCall"
         android:text="@string/call_btn"
         android:textSize="35dp" />
@@ -86,7 +86,8 @@
         android:textOn="Audio ON"
         android:textOff="Audio OFF"
         android:textSize="30dp"
-        android:background="@drawable/box_layout"/>
+        android:background="@drawable/box_layout"
+        android:backgroundTint="@color/light_crimson"/>
 
     <ToggleButton
         android:id="@+id/notifyBtn"
@@ -103,7 +104,8 @@
         android:textOn="Notify ON"
         android:textOff="Notify OFF"
         android:textSize="30dp"
-        android:background="@drawable/box_layout"/>
+        android:background="@drawable/box_layout"
+        android:backgroundTint="@color/light_crimson"/>
 
 </RelativeLayout>
 
