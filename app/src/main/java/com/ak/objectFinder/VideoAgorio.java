@@ -1,10 +1,13 @@
 package com.ak.objectFinder;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -210,6 +213,15 @@ public class VideoAgorio extends AppCompatActivity {
     }
 
     public void onLocalAudioMuteClicked(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         mMuted = !mMuted;
         rtcEngine.muteLocalAudioStream(mMuted);
         int res = mMuted ? R.drawable.btn_mute : R.drawable.btn_unmute;
@@ -217,10 +229,28 @@ public class VideoAgorio extends AppCompatActivity {
     }
 
     public void onSwitchCameraClicked(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         rtcEngine.switchCamera();
     }
 
     public void onCallClicked(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         if (mCallEnd) {
             startCall();
             mCallEnd = false;

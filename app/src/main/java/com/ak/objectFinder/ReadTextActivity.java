@@ -1,13 +1,16 @@
 package com.ak.objectFinder;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,6 +59,15 @@ public class ReadTextActivity extends AppCompatActivity {
     }
 
     public void onTryAgainClicked(View view){
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         textView.setText("Loading...");
         speechText = "Try Again";
         tryAgain = true;
@@ -66,6 +78,15 @@ public class ReadTextActivity extends AppCompatActivity {
     }
 
     public void onAskForHelpClicked(View view){
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         speechText = "Ask for help";
         if (call){
             View b1 = findViewById(R.id.try_again);

@@ -1,9 +1,12 @@
 package com.ak.objectFinder;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +36,15 @@ public class HelpSignActivity extends AppCompatActivity {
     }
 
     public void onSendTextClick(View view){
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         sign_text = inputSignText.getText().toString();
         FirebaseAPI.sendTextToUser(requestId, sign_text);
         Intent intent = new Intent(this, ThankYouActivity.class);
@@ -42,6 +54,15 @@ public class HelpSignActivity extends AppCompatActivity {
 
 
     public void onClickSpeechToText(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());

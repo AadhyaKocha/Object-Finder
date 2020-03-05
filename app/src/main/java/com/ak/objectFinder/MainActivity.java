@@ -10,7 +10,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
@@ -60,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
                 // The toggle is disabled
+                buttonView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                        vb.vibrate(70);
+                        return false;
+                    }
+                });
+
                 Globals.audioPref = isChecked;
                 sp.edit().putBoolean(Globals.audio_key, isChecked).commit();
                 speechtext = "Audio settings on";
@@ -73,6 +84,15 @@ public class MainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // The toggle is enabled
                 // The toggle is disabled
+                buttonView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                        vb.vibrate(70);
+                        return false;
+                    }
+                });
+
                 Globals.notifyPref = isChecked;
                 FirebaseAPI.setNotificationStatus(isChecked);
                 speechtext = "Notifications setting changed";
@@ -92,6 +112,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickedScan(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         speechtext = "Scan room";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, ChooseActivity.class);
@@ -103,6 +132,14 @@ public class MainActivity extends AppCompatActivity {
 //        TextToSpeechHelper.speak(getApplicationContext(), speechtext);
 //        Intent intent = new Intent(this, CallOptionActivity.class);
 //        startActivity(intent);
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
 
         speechtext = "Video call directly!";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
@@ -113,6 +150,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickedRead(View view) {
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Vibrator vb = (Vibrator)   getSystemService(Context.VIBRATOR_SERVICE);
+                vb.vibrate(70);
+                return false;
+            }
+        });
+
         speechtext = "Read text";
         TextToSpeechHelper.speak(getApplicationContext(), speechtext);
         Intent intent = new Intent(this, ReadTextActivity.class);
