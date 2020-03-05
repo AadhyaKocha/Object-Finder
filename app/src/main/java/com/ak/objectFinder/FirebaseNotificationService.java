@@ -14,34 +14,90 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 
 public class FirebaseNotificationService extends FirebaseMessagingService {
-    String requestId;
-
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> data;
         // Check if message contains a data payload.
+        String requestId, callId;
         if (remoteMessage.getData().size() > 0) {
             data = remoteMessage.getData();
             requestId = data.get("requestId");
-            FirebaseAPI.getRequesterID(requestId, new FirebaseAPI.GetInfoCallback<String>() {
-                @Override
-                public void onSuccess(String info) {
-                    if (!info.equals(FirebaseAPI.getCurrentUID())) {
-                        createNotification(requestId);
+            callId = data.get("callId");
+            if (requestId != null) {
+                FirebaseAPI.getRequesterID(requestId, new FirebaseAPI.GetInfoCallback<String>() {
+                    @Override
+                    public void onSuccess(String info) {
+                        if (!info.equals(FirebaseAPI.getCurrentUID())) {
+                            createTextNotification(requestId);
+                        }
                     }
-                }
 
-                @Override
-                public void onError(Exception e) {
+                    @Override
+                    public void onError(Exception e) {
 
-                }
-            });
+                    }
+                });
+            }
+            if (callId != null) {
+                FirebaseAPI.getCallerID(callId, new FirebaseAPI.GetInfoCallback<String>() {
+                    @Override
+                    public void onSuccess(String info) {
+                        if (!info.equals(FirebaseAPI.getCurrentUID())) {
+                            createCallNotification(callId);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+            }
         }
 
 
     }
 
-    public void createNotification(String requestId) {
+    public void createCallNotification(String callId) {
+        Intent intent = new Intent(this, VideoAgorio.class);
+        intent.putExtra("callId", callId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "eyespy")
+                .setSmallIcon(R.drawable.baseline_live_help_black_48)
+                .setContentTitle("Answer a Call For Help")
+                .setContentText("Tap here to video chat with someone who needs your help")
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        int hash = callId.hashCode();
+        notificationManager.notify(hash, builder.build());
+        listenAndCancelCall(callId, hash);
+
+    }
+
+    public void listenAndCancelCall(String callId, int hash) {
+        FirebaseAPI.listenForHelpResponseCall(callId, new FirebaseAPI.GetInfoCallback<Boolean>() {
+            @Override
+            public void onSuccess(Boolean info) {
+                if (info) {
+                    String ns = Context.NOTIFICATION_SERVICE;
+                    NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(ns);
+                    nMgr.cancel(hash);
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+    }
+
+    public void createTextNotification(String requestId) {
         Intent intent = new Intent(this, HelpSignActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("requestId", requestId);
@@ -49,7 +105,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "eyespy")
                 .setSmallIcon(R.drawable.baseline_live_help_black_48)
-                .setContentTitle("Help Identify Text!")
+                .setContentTitle("Help Identify Text")
                 .setContentText("Tap here to help someone read some text")
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -58,11 +114,11 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         int hash = requestId.hashCode();
         notificationManager.notify(hash, builder.build());
-        listenAndCancel(hash);
+        listenAndCancelText(requestId, hash);
     }
 
-    public void listenAndCancel(int hash) {
-        FirebaseAPI.listenForHelpResponse(requestId, new FirebaseAPI.GetInfoCallback<String>() {
+    public void listenAndCancelText(String requestId, int hash) {
+        FirebaseAPI.listenForHelpResponseText(requestId, new FirebaseAPI.GetInfoCallback<String>() {
             @Override
             public void onSuccess(String info) {
                 if (!info.equals("Waiting for reply...")) {

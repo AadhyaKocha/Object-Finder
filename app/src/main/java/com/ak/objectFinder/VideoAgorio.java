@@ -97,7 +97,13 @@ public class VideoAgorio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_agorio);
-
+        String callId = getIntent().getStringExtra("callId");
+        if (callId != null) {
+            FirebaseAPI.joinCall(callId);
+        } else {
+            FirebaseAPI.startCall();
+        }
+        
         initUi();
 
         if (checkSelfPermission(REQUESTED_PERMISSIONS[0], PERMISSION_RED_ID) &&

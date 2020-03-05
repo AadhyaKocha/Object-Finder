@@ -94,6 +94,23 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
+    public static void getCallerID(String callID, GetInfoCallback<String> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("calls").document(callID);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                callback.onSuccess(documentSnapshot.getString("user1"));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onError(e);
+            }
+        });
+
+    }
+
     public static void getTextFromHelpers(Uri imgUri, TextView resultTextView, Context c) {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         String path = "TextImages/" + new Date() + ".jpg";
@@ -130,10 +147,26 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
+    public static void startCall() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Map<String, Object> data = new HashMap<>();
+        data.put("user1", userId);
+        data.put("user2", "");
+
+        DocumentReference docRef = db.collection("calls").document();
+        docRef.set(data);
+    }
+
     public static void sendTextToUser(String requestID, String text) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("helpRequests").document(requestID).update("text", text);
-        Log.e("scott", requestID + " " + text);
+    }
+
+    public static void joinCall(String callId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        db.collection("calls").document(callId).update("user2", userId);
     }
 
     @Override
@@ -145,7 +178,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
     }
 
-    public static void listenForHelpResponse(String requestId, GetInfoCallback<String> callback) {
+    public static void listenForHelpResponseText(String requestId, GetInfoCallback<String> callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("helpRequests").document(requestId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -156,6 +189,27 @@ public class FirebaseAPI extends FirebaseMessagingService {
                 }
                 if (documentSnapshot != null && documentSnapshot.exists()) {
                     callback.onSuccess(documentSnapshot.getString("text"));
+                }
+            }
+        });
+    }
+
+    public static void listenForHelpResponseCall(String callId, GetInfoCallback<Boolean> callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("calls").document(callId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    callback.onError(e);
+                    return;
+                }
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    String user2 = documentSnapshot.getString("user2");
+                    if (user2 != null && user2.length() > 2) {
+                        callback.onSuccess(true);
+                        return;
+                    }
+                    callback.onSuccess(false);
                 }
             }
         });
