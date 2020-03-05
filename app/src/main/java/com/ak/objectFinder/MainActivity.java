@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     public FirebaseUser mUser;
     private FirebaseAuth mAuth;
     private String speechtext = "What do you need help with today?";
-    ToggleButton audioToggle;
     TextToSpeechHelper speaker;
 
 
@@ -34,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ToggleButton notifyToggle = findViewById(R.id.notifyBtn);
+        ToggleButton audioToggle = findViewById(R.id.audioBtn);
+
+        notifyToggle.setChecked(true);
+        audioToggle.setChecked(true);
+
         SharedPreferences sp = getSharedPreferences("com.ak.objectFinder", Context.MODE_PRIVATE);
         createNotificationChannel();
         speaker = new TextToSpeechHelper(this);
@@ -48,14 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (sp.contains(Globals.audio_key)){
             Globals.audioPref = sp.getBoolean(Globals.audio_key, false);
-            audioToggle = findViewById(R.id.audioBtn);
-            audioToggle.setChecked(true);
+            audioToggle.setChecked(Globals.audioPref);
 
         } else {
-            Globals.audioPref = false;
+            Globals.audioPref = true;
         }
 
-        audioToggle = findViewById(R.id.audioBtn);
         audioToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Globals.audioPref = isChecked;
@@ -67,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ToggleButton notifyToggle = findViewById(R.id.notifyBtn);
         FirebaseAPI.getNotificationStatus(notifyToggle, new FirebaseAPI.GetInfoCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean info) {
