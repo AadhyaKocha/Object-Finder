@@ -30,7 +30,7 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
                     @Override
                     public void onSuccess(String info) {
                         Log.e("scott", "info" + info);
-                        if (info.equals(FirebaseAPI.getCurrentUID())) {
+                        if (!info.equals(FirebaseAPI.getCurrentUID())) {
                             createTextNotification(requestId);
                         }
                     }
