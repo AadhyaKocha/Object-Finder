@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -39,7 +38,8 @@ public class ChooseActivity extends AppCompatActivity {
         speechtext = "You have chosen glasses";
         speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
-        intent.putExtra(Globals.OBJECT_TYPE, Globals.glasses);
+        intent.putExtra(Globals.OBJECT_TYPE, Globals.glassesLabels);
+        intent.putExtra(Globals.LIMIT, 0.4f);
         startActivity(intent);
     }
 
@@ -56,7 +56,8 @@ public class ChooseActivity extends AppCompatActivity {
         speechtext = "You have chosen jacket";
         speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
-        intent.putExtra(Globals.OBJECT_TYPE, Globals.jacket);
+        intent.putExtra(Globals.OBJECT_TYPE, Globals.jacketLabels);
+        intent.putExtra(Globals.LIMIT, 0.7f);
         startActivity(intent);
     }
 
@@ -73,7 +74,8 @@ public class ChooseActivity extends AppCompatActivity {
         speechtext = "You have chosen bag";
         speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
-        intent.putExtra(Globals.OBJECT_TYPE, Globals.bag);
+        intent.putExtra(Globals.OBJECT_TYPE, Globals.bagLabels);
+        intent.putExtra(Globals.LIMIT, 0.4f);
         startActivity(intent);
     }
 }

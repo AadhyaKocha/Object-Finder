@@ -3,6 +3,7 @@ package com.ak.objectFinder;
 public abstract class Globals {
 
     public static final String OBJECT_TYPE = "object_type";
+    public static final String LIMIT = "limit";
     public static final String keys = "keys";
     public static final String glasses = "Glasses";
     public static final String phone = "Mobile phone";

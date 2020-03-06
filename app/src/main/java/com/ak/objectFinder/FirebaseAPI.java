@@ -253,6 +253,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
+            Log.e("scott", "start");
             Bitmap mIcon11 = null;
             try {
                 InputStream in = new java.net.URL(urldisplay).openStream();
@@ -266,6 +267,7 @@ public class FirebaseAPI extends FirebaseMessagingService {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
+            Log.e("scott", "works");
         }
     }
 

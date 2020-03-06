@@ -25,6 +25,7 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
+import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -36,17 +37,19 @@ public class ObjectFinder extends AppCompatActivity {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private Vibrator vibe;
     private boolean vibrating = false;
-    private String goalObject = "";
+    float limit;
     private Context con;
     private FrameLayout cameraFrame;
     TextToSpeechHelper speaker;
+    private String[] goalObjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         con = this;
         setContentView(R.layout.activity_object_finder);
-        goalObject = getIntent().getStringExtra(Globals.OBJECT_TYPE);
+        goalObjects = getIntent().getStringArrayExtra(Globals.OBJECT_TYPE);
+        limit = getIntent().getFloatExtra(Globals.LIMIT, 0.4f);
         cameraFrame = findViewById(R.id.cameraFrame);
         speaker = new TextToSpeechHelper(this);
         cameraProviderFuture = ProcessCameraProvider.getInstance(this);
@@ -93,28 +96,33 @@ public class ObjectFinder extends AppCompatActivity {
                     Image mediaImage = imageProxy.getImage();
                     FirebaseVisionImage image =
                             FirebaseVisionImage.fromMediaImage(mediaImage, 0);
+                    FirebaseVisionOnDeviceImageLabelerOptions options = new FirebaseVisionOnDeviceImageLabelerOptions.Builder()
+                            .setConfidenceThreshold(limit)
+                            .build();
                     FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
-                            .getOnDeviceImageLabeler();
+                            .getOnDeviceImageLabeler(options);
                     labeler.processImage(image)
                             .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
                                 @Override
                                 public void onSuccess(List<FirebaseVisionImageLabel> labels) {
                                     imageProxy.close();
                                     for (FirebaseVisionImageLabel obj : labels) {
-                                        if (obj.getText().equals(goalObject)) {
-                                            if (!vibrating) {
-                                                vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
-                                                vibrating = true;
-                                                speaker.speak("Object detected");
-                                                cameraFrame.setBackgroundColor(getResources().getColor(R.color.yellow_green));
+                                        for (String goalObject : goalObjects) {
+                                            if (obj.getText().equals(goalObject)) {
+                                                if (!vibrating) {
+                                                    vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
+                                                    vibrating = true;
+                                                    //speaker.speak("Object detected");
+                                                    cameraFrame.setBackgroundColor(getResources().getColor(R.color.yellow_green));
+                                                }
+                                                return;
                                             }
-                                            return;
                                         }
                                     }
                                     if (vibrating) {
                                         vibe.cancel();
                                         vibrating = false;
-                                        speaker.speak("Object lost");
+                                        //speaker.speak("Object lost");
                                         cameraFrame.setBackgroundColor(getResources().getColor(R.color.rubine_red));
                                     }
                                 }
