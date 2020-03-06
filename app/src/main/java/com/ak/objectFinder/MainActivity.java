@@ -11,8 +11,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.speech.RecognizerIntent;
-import android.speech.tts.TextToSpeech;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -25,9 +23,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public FirebaseUser mUser;
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ToggleButton notifyToggle = findViewById(R.id.notifyBtn);
         ToggleButton audioToggle = findViewById(R.id.audioBtn);
 
-        notifyToggle.setChecked(true);
+        notifyToggle.setChecked(false);
         audioToggle.setChecked(true);
 
         SharedPreferences sp = getSharedPreferences("com.ak.objectFinder", Context.MODE_PRIVATE);
