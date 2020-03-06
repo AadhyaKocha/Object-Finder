@@ -59,6 +59,7 @@ public class ChooseActivity extends AppCompatActivity {
         intent.putExtra(Globals.OBJECT_TYPE, Globals.jacketLabels);
         intent.putExtra(Globals.LIMIT, 0.4f);
         startActivity(intent);
+
     }
 
     public void onFindBagClick(View view){
