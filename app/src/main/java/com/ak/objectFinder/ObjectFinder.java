@@ -42,6 +42,7 @@ public class ObjectFinder extends AppCompatActivity {
     private FrameLayout cameraFrame;
     TextToSpeechHelper speaker;
     private String[] goalObjects;
+    private boolean gonzoBall = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,13 @@ public class ObjectFinder extends AppCompatActivity {
         super.onPause();
         vibe.cancel();
         speaker.cancel();
+        gonzoBall = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        gonzoBall = false;
     }
 
     @UseExperimental(markerClass = androidx.camera.core.ExperimentalGetImage.class)
@@ -109,7 +117,7 @@ public class ObjectFinder extends AppCompatActivity {
                                     for (FirebaseVisionImageLabel obj : labels) {
                                         for (String goalObject : goalObjects) {
                                             if (obj.getText().equals(goalObject)) {
-                                                if (!vibrating) {
+                                                if (!vibrating && !gonzoBall) {
                                                     vibe.vibrate(VibrationEffect.createWaveform(pattern, 0));
                                                     vibrating = true;
                                                     //speaker.speak("Object detected");
