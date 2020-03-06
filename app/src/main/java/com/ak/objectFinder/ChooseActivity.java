@@ -39,7 +39,7 @@ public class ChooseActivity extends AppCompatActivity {
         speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.glassesLabels);
-        intent.putExtra(Globals.LIMIT, 0.4f);
+        intent.putExtra(Globals.LIMIT, 0.2f);
         startActivity(intent);
     }
 
@@ -57,7 +57,7 @@ public class ChooseActivity extends AppCompatActivity {
         speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.jacketLabels);
-        intent.putExtra(Globals.LIMIT, 0.7f);
+        intent.putExtra(Globals.LIMIT, 0.4f);
         startActivity(intent);
     }
 
@@ -75,7 +75,7 @@ public class ChooseActivity extends AppCompatActivity {
         speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.bagLabels);
-        intent.putExtra(Globals.LIMIT, 0.4f);
+        intent.putExtra(Globals.LIMIT, 0.3f);
         startActivity(intent);
     }
 }
