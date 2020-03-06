@@ -57,7 +57,7 @@ public class ChooseActivity extends AppCompatActivity {
         speaker.speak(speechtext);
         Intent intent = new Intent(this, ObjectFinder.class);
         intent.putExtra(Globals.OBJECT_TYPE, Globals.jacketLabels);
-        intent.putExtra(Globals.LIMIT, 0.7f);
+        intent.putExtra(Globals.LIMIT, 0.67f);
         startActivity(intent);
 
     }
